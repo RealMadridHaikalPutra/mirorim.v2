@@ -1,7 +1,5 @@
 <?php
 
-require 'php/function.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,14 +10,13 @@ require 'php/function.php';
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mirorim</title>
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <link href="../css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Purchase Mirorim</a>
+            <a class="navbar-brand" href="index.php">Warehouse Mirorirm</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
@@ -35,39 +32,35 @@ require 'php/function.php';
             </ul>
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
+        <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Administrator</div>
-                            <a class="nav-link" href="index.php?url=packinglist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List
-                            </a>
-                            <a class="nav-link" href="index.php?url=lokal">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List Lokal
-                            </a>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
-                                    Approval
+                        <div class="sb-sidenav-menu-heading">Admin Warehouse</div>
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                                    All Product
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapsed" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="index.php?url=approve">Approval Item</a>
-                                    <a class="nav-link" href="index.php?url=approvelokal">Approval Item Lokal</a>
-                                    <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
-                                    
+                                    <a class="nav-link" href="index.php?url=gudang">Warehouse</a>
+                                    <a class="nav-link" href="index.php?url=gudang5">Warehouse 5</a>
+                                    <a class="nav-link" href="index.php?url=nonsku">Non SKU</a>
                                 </nav>
                             </div>
-                            
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        
-                    </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                                Out & Update
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="index.php?url=mutasi">Mutasi Warehouse</a>
+                                    <a class="nav-link" href="index.php?url=exititem">Exit Item</a>
+                                    <a class="nav-link" href="index.php?url=exitprepare">Exit preparation</a>
+                                </nav>
+                            </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -79,7 +72,7 @@ require 'php/function.php';
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Purchase .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Warehouse .</h4> </p>
                     </div>";
                 } else {
                     include $file . '.php';
@@ -98,7 +91,6 @@ require 'php/function.php';
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

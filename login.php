@@ -50,7 +50,7 @@ if(isset($_POST['login'])){
 
         header('location:super_admin');
 
-    } elseif($role=='purchase'){
+    } elseif($role=='purchasing'){
 
         $_SESSION['iduser'] = $iduser;
 
@@ -58,7 +58,7 @@ if(isset($_POST['login'])){
 
         $_SESSION['role'] = 'purchase';
 
-        header('location:purchase');
+        header('location:purchasing');
 
     }elseif($role=='toko'){
 
