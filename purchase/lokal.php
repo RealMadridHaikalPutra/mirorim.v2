@@ -37,8 +37,9 @@
                                                             <label for="floatingName">Quantity Box</label>
                                                         </div>
                                                         </div>
+                                                        <input type="hidden" value="lokal" name="lokal">
                                                         <div class="text-center">
-                                                        <button type="submit" name="submitqtybox" value="proses" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="addboxlokal" value="proses" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form><!-- End floating Labels Form -->
                                                         <br>
@@ -52,99 +53,65 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>No Invoice</th>
-                                                <th>No Resi</th>
                                                 <th>Box Number</th>
                                                 <th>Status</th>
+                                                <th>From</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+                                                $ambildata = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE datang='lokal'");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($ambildata)){
+                                                    $inv = $data['invoice'];
+                                            ?>
                                             <tr>
-                                                <td></td>
-                                                <th data-bs-toggle="modal" data-bs-target="#largeModal"></th>
-                                                <td></td>
-                                                <td class="text-uppercase"></td>
-                                                <td>m³</td>
+                                                <td><?=$i++;?></td>
+                                                <th data-bs-toggle="modal" data-bs-target="#largeModal<?=$data['invoice'];?>"><?=$data['invoice'];?></th>
+                                                <td class="text-uppercase"><?=$data['box'];?></td>
+                                                <td><?=$data['status'];?></td>
+                                                <td><?=$data['datang'];?></td>
                                             </tr>
                                             <!--Modal-->
-                                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                            <div class="modal fade" id="largeModal<?=$data['invoice'];?>" tabindex="-1">
                                                 <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title">List Item Invoice :</h5>
-                                                    <button class="btn btn-primary ml-4" data-bs-toggle="modal" data-bs-target="#smallModal">Add New Item</button>
+                                                    <h5 class="modal-title">List Item Invoice : <?=$data['invoice'];?></h5>
+                                                    <a type="button" href="index.php?url=inputmulti&box=<?=$data['box'];?>&invoice=<?=$data['invoice'];?>"class="btn btn-primary ml-4">Add Item</a>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <!--Card-->
                                                     <div class="row row-cols-1 row-cols-md-2 g-4">
+                                                    <?php
+                                                        $ambilitem = mysqli_query($conn, "SELECT * FROM order_id,boxorder_id,product_id, toko_id WHERE boxorder_id.id_box=order_id.id_box AND order_id.id_product = product_id.id_product AND toko_id.id_product=product_id.id_product AND  invoice='$inv' ORDER BY nama ASC");
+                                                        $s = 1;
+                                                        while($item=mysqli_fetch_array($ambilitem)){
+                                                    ?>
                                                         <div class="col">
                                                             <div class="card border-dark m-auto" style="max-width: 18rem;">
-                                                                <div class="card-header">Items </div>
+                                                                <div class="card-header">Items <?=$s++;?></div>
                                                                 <div class="card-body">
-                                                                    <h5 class="card-title">Nama Barang : </h5>
-                                                                    <h5 class="card-title text-uppercase">SKU :</h5>
-                                                                    <h5 class="card-title">Quantity :</h5>
-                                                                    <h5 class="card-title">Status : </h5>
+                                                                    <h5 class="card-title">Nama Barang : <?=$item['nama'];?></h5>
+                                                                    <h5 class="card-title text-uppercase">SKU : <?=$item['sku'];?></h5>
+                                                                    <h5 class="card-title">Quantity : <?=$item['quantity_order'];?></h5>
+                                                                    <h5 class="card-title">Status : <?=$item['status'];?></h5>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                        </div>
                                                     <!--End Card--->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="smallModal" tabindex="-1">
-                                                <div class="modal-dialog modal-sm">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title"></h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="card-header">
-                                                    <form method="post" action="inputmulti.php">
-                                                        <input type="hidden" name="inv" value="">
-                                                        <input type="hidden" name="boxid" value="">
-                                                        <button type="submit" name="btnmulti" class="btn btn-outline-primary" href="inputmulti.php">Multi</button>
-                                                    </form>
-                                                    </div>
-                                                    <form method="post" class="row g-3" enctype="multipart/form-data">   
-                                                        <div class="modal-body">
-                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" name="box" value="" placeholder="SKU Warehouse">
-                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" name="invoice" value="" placeholder="SKU Warehouse">
-                                                        <div class="col-12">
-                                                                <div class="col-sm-12">
-                                                                    <label>Image</label>
-                                                                    <div class="form-floating">
-                                                                    <input type="file" name="file" class="form-control" id="floatingName" placeholder="Image" required="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-12">
-                                                                    <label>Item Name</label>
-                                                                    <div class="form-floating">
-                                                                    <input type="text" name="nama" class="form-control" id="floatingName" placeholder="Item Name" required="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-12">
-                                                                    <label>SKU</label>
-                                                                    <div class="form-floating">
-                                                                    <input type="text" name="sku" class="form-control text-uppercase" id="floatingName" placeholder="SKU Store">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-12">
-                                                                    <label>Quantity</label>
-                                                                    <div class="form-floating">
-                                                                    <input type="number" name="quantity" class="form-control" id="floatingName" placeholder="Quantity" required="">
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-                                                                <div class="text-center">
-                                                                    <button type="submit" name="additembox" class="btn btn-primary">Submit</button>
-                                                                </div> 
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
+                                            <?php
+                                                }
+                                            ?>
+                                           
                                             </tbody>
                                     </table>
                                 </div>
