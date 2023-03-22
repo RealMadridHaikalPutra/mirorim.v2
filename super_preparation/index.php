@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Purchase Mirorim</a>
+            <a class="navbar-brand" href="index.php">Preparation Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
@@ -36,26 +36,19 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Administrator</div>
-                            <a class="nav-link" href="index.php?url=packinglist">
+                            <div class="sb-sidenav-menu-heading">Preparation</div>
+                            <a class="nav-link" href="index.php?url=komponen">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List
+                                List Item&Komponen
                             </a>
-                            <a class="nav-link" href="index.php?url=lokal">
+                            <a class="nav-link" href="index.php?url=liststokprepare">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List Lokal
+                                List Stok Prepare
                             </a>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
-                                    Approval
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <a class="nav-link" href="index.php?url=reqpre">
+                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                Request Item
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="index.php?url=approve">Approval Item</a>
-                                    <a class="nav-link" href="index.php?url=approvelokal">Approval Item Lokal</a>
-                                    <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
-                                    
                                 </nav>
                             </div>
                             
@@ -75,7 +68,7 @@
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Purchase .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Preparation .</h4> </p>
                     </div>";
                 } else {
                     include $file . '.php';

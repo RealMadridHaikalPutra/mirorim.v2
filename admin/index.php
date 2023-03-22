@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Purchase Mirorim</a>
+            <a class="navbar-brand" href="index.php">Administrtator Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
@@ -39,11 +39,19 @@
                             <div class="sb-sidenav-menu-heading">Administrator</div>
                             <a class="nav-link" href="index.php?url=packinglist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List
+                                Data User
                             </a>
                             <a class="nav-link" href="index.php?url=lokal">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List Lokal
+                                Data Nama Product
+                            </a>
+                            <a class="nav-link" href="index.php?url=lokal">
+                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                Data SKU Toko
+                            </a>
+                            <a class="nav-link" href="index.php?url=lokal">
+                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                Data Gudang
                             </a>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
@@ -52,9 +60,9 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="index.php?url=approve">Approval Item</a>
-                                    <a class="nav-link" href="index.php?url=approvelokal">Approval Item Lokal</a>
-                                    <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
+                                    <a class="nav-link" href="index.php?url=approve">Refill & Request</a>
+                                    <a class="nav-link" href="index.php?url=approvelokal">Mutasi</a>
+                                    <a class="nav-link" href="index.php?url=approvebox">Approve Prepare</a>
                                     
                                 </nav>
                             </div>
@@ -75,7 +83,7 @@
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Purchase .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Administrator Mirorim .</h4> </p>
                     </div>";
                 } else {
                     include $file . '.php';

@@ -1,0 +1,9 @@
+Gudang udah semua tinggal beberapa yang eror drid dan semua php sudah di comment pake /* atau //
+super_gudang itu ga ada file approve mutasi (baru file) makanya di kejar dulu yang ada 
+kalau bisa link cdn nya yang boostrap 5 di tambahin jangan lupa 
+untuk Super gudang bisa edit qty drid image trus nama sama skug mnurut gua karna itu punya pak ogi 
+login udah selesai 
+Untuk Toko yang bisa request blum gua isi drid
+tolong untuk file purchase lau ganti nama file nya jadi Purchasing
+Untuk admin dan super admin belum yak drid 
+baru segini dlu nanti gua kabarin di wa kalau udah ada Oia jangan lupa nanti setiap index pake cdn boostrap 5

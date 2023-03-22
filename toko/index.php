@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Purchase Mirorim</a>
+            <a class="navbar-brand" href="index.php">Toko Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
@@ -36,14 +36,10 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Administrator</div>
-                            <a class="nav-link" href="index.php?url=packinglist">
+                            <div class="sb-sidenav-menu-heading">Toko</div>
+                            <a class="nav-link" href="index.php?url=request">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List
-                            </a>
-                            <a class="nav-link" href="index.php?url=lokal">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List Lokal
+                                Request & Refill
                             </a>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
@@ -52,10 +48,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="index.php?url=approve">Approval Item</a>
-                                    <a class="nav-link" href="index.php?url=approvelokal">Approval Item Lokal</a>
-                                    <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
-                                    
+                                    <a class="nav-link" href="index.php?url=approve">Sudah Approve</a>
+                                    <a class="nav-link" href="index.php?url=belumapprove">Belum di Approve</a>
                                 </nav>
                             </div>
                             
@@ -75,7 +69,8 @@
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Purchase .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Toko.</h4> </p>
+                    <p class='card-text'>Aplikasi Pembayaran SPP digunakan untuk mempermudah dalam mencatat pembayaran siswa / siswi disekolah.</p>
                     </div>";
                 } else {
                     include $file . '.php';
