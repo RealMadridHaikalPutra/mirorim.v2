@@ -29,7 +29,7 @@
                             </thead>
                             <tbody>
                             <?php
-                                $select = mysqli_query($conn, "SELECT id_product_finish AS idp, nama, sku_toko, quantity_req FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish AND status_prepare='unprocessed'");
+                                $select = mysqli_query($conn, "SELECT id_product_finish AS idp, id_prepare AS idpre, nama, sku_toko, quantity_req FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish AND status_prepare='Unprocess'");
                                 $i = 1;
                                 while ($data = mysqli_fetch_array($select)) {
                                 ?>
@@ -38,7 +38,7 @@
                                         <td><?= $data['nama']; ?></td>
                                         <td><?= $data['sku_toko']; ?></td>
                                         <td><?= $data['quantity_req']; ?></td>
-                                        <td><input type="checkbox" name="cek[]" class="form-input"></td>
+                                        <td><input type="checkbox" value="<?=$data['idpre'];?>" name="cek[]" class="form-input"></td>
                                             <input type="hidden" name="idp[]" value="<?=$data['idp'];?>">
                                             <input type="hidden" name="stat" value="Receive">
                                         

@@ -96,7 +96,7 @@ if(isset($_POST['accrequest'])){
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_receiver='$date' WHERE id_product_finish='$idp[$i]'");
+        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_receiver='$date' WHERE id_prepare='$cek[$i]'");
         header('location:?url=reqpre');
     }{
 
@@ -113,7 +113,7 @@ if(isset($_POST['accrequestprocess'])){
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_start='$date' WHERE id_product_finish='$idp[$i]'");
+        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_start='$date' WHERE id_prepare='$cek[$i]'");
         header('location:?url=workerprepare');
     }{
 
@@ -124,13 +124,24 @@ if(isset($_POST['accrequestdone'])){
     $idp = $_POST['idp'];
     $cek = $_POST['cek'];
     $stat = $_POST['stat'];
+    $reject = $_POST['reject'];
     //receive = $_POST['receiver'];
     $date = date('Y-m-d H:i:s');
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_finish='$date' WHERE id_product_finish='$idp[$i]'");
-        header('location:?url=workerprepare');
+        $select = mysqli_query($conn, "SELECT quantity_req FROM request_prepare WHERE id_prepare='$cek[$i]'");
+        $data = mysqli_fetch_array($select);
+        $quantity = $data['quantity_req'];
+
+        $kurang = $quantity-$reject[$i];
+        if($select){
+            $update = mysqli_query($conn, "UPDATE request_prepare SET quantity_matang='$kurang', quantity_reject='$reject[$i]', status_prepare='$stat', date_finish='$date' WHERE id_prepare='$cek[$i]'");
+            header('location:?url=workerprepare');
+        } else {
+
+        }
+       
     }{
 
     }

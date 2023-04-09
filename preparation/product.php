@@ -21,7 +21,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $ambil = mysqli_query($conn, "SELECT * FROM product_id WHERE jenis='Komp'");
+                                                $ambil = mysqli_query($conn, "SELECT * FROM product_id WHERE jenis='Mentah'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambil)){
                                                     $gambar = $data['image'];

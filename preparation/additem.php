@@ -50,7 +50,7 @@
                                                 </td>
                                                 <td>
                                                     <select class="form-control" name="jenis[]">
-                                                        <option value="Komp" class="form-control">Komponen</option>
+                                                        <option value="Mentah" class="form-control">Mentah</option>
                                                         <option value="Mateng" class="form-control">Mateng</option>
                                                     </select>
                                                 </td>

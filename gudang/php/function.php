@@ -138,26 +138,76 @@ if(isset($_POST['cektoko'])){
 
 //Request Prepare
 if(isset($_POST['preparereq'])){
-    $nama = $_POST['nama'];
+    $idp = $_POST['idp'];
+    $idg = $_POST['idg'];
+    $idk = $_POST['idk'];
+    $stat = $_POST['stat'];
     $quantity = $_POST['quantity'];
-    $status = $_POST['stat'];
-    // $date = date('Y-m-d H:i:s');
+    $quantity2 = $_POST['quantity2'];
     $jum = $_POST['jum'];
 
     for($i = 0; $i < $jum; $i++){
-        $select = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
-        $data = mysqli_fetch_array($select);
-        $idp = $data['id_product'];
+        $select1 = mysqli_query($conn, "SELECT * FROM list_komponen WHERE id_product_finish='$idp[$i]'");
+        $data1 = mysqli_fetch_array($select1);
+        $idkomp = $data1['id_komponen'];
 
-        if($select){
-            $insert = mysqli_query($conn, "INSERT INTO request_prepare(id_product_finish, quantity_req, status_prepare) VALUES('$idp','$quantity[$i]','$status')");
-            header('location:?url=request');
+
+        if($select1){
+            $insert = mysqli_query($conn, "INSERT INTO request_prepare(id_product_finish, quantity_req, status_prepare, gudang_out) VALUES('$idp[$i]','$quantity[$i]','$stat','$idg[$i]')");
+            if($insert){
+                $select2 = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_gudang='$idk[$i]'");
+                $data2 = mysqli_fetch_array($select2);
+                $quantityril = $data2['quantity'];
+
+                $kurang = $quantityril-$quantity2[$i];
+                if($select2){
+                    $update = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idk[$i]'");
+                    header('location:?url=exitprepare');
+                } else {
+                    echo "Lohh";
+                }   
+            } else {
+
+            }
         } else {
-
+            echo "Gagal";
         }
     }{
 
     }
 }
 
+//Acc Broo
+if(isset($_POST['komponenacc'])){
+    $idp = $_POST['idp'];
+    $cek = $_POST['cek'];
+    $stat = $_POST['stat'];
+    $idg = $_POST['idg'];
+    $quantity = $_POST['quantity'];
+    //receive = $_POST['receiver'];
+    $date = date('Y-m-d H:i:s');
+
+    $jum = count($cek);
+    for ($i = 0; $i < $jum; $i++){
+        $select = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
+        $data = mysqli_fetch_array($select);
+        $quantity1 = $data['quantity'];
+
+        $tambah = $quantity1+$quantity[$i];
+        if($select){
+            $update = mysqli_query($conn, "UPDATE request_prepare SET gudang_in='$idg[$i]', status_prepare='$stat' WHERE id_prepare='$cek[$i]'");
+            if($update){
+                $update1 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$tambah' WHERE id_gudang='$idg[$i]'");
+                header('location:?url=exitprepare'); 
+            } else {
+
+            }
+        } else {
+
+        }
+       
+    }{
+
+    }
+}
 ?>

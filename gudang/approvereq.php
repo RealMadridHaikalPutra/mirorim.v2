@@ -1,8 +1,8 @@
 <form method="post">
                     <div class="container-fluid">
-                        <h1 class="mt-4">Form Input QTY Box and Kubikasi</h1>
+                        <h1 class="mt-4">Form Input Gudang Komponen</h1>
                         <div class="card-header">
-                                <button type="submit" name="inputquantitybox" class="btn btn-outline-success">Submit</button>
+                                <button type="submit" name="preparereq" class="btn btn-outline-success">Submit</button>
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -26,9 +26,10 @@
                                             $k = 1;
 
                                             for($i=0; $i < $hitung; $i++){
-                                                $ambilperhitungan = mysqli_query($conn, "SELECT * FROM product_id, list_komponen WHERE product_id.id_product=list_komponen.id_product_finish AND nama='$nama[$i]'");;
+                                                $ambilperhitungan = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
                                                 $jum = 1;
                                                 while($data=mysqli_fetch_array($ambilperhitungan)){
+                                                    $idp = $data['id_product'];
                                             
                                         ?>
                                             <tr>
@@ -36,14 +37,53 @@
                                                 <th><?=$data['nama'];?></th>
                                                 <th>SKU</th>
                                                 <th><?=$quantity[$i];?></th>
-                                                <th>Gudang</th>
+                                                <th><select class="form-control" name="idg[]"><!-- Ambil Gudang Induk -->
+                                                <?php
+                                                    $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idp'");
+                                                    $k = 1;
+                                                    while($opsi = mysqli_fetch_array($selectopsi)){
+                                                        
+                                                ?>
+                                                    <option value="<?=$opsi['id_gudang'];?>"><?=$opsi['sku_gudang'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                                <!-- Form Input -->
+                                                <input type="text" value="<?=$idp;?>" name="idp[]">
+                                                <input type="text" value="<?=$hitung;?>" name="jum[]">
+                                                <input type="text" value="<?=$quantity[$i];?>" name="quantity[]">
+                                                <input type="text" value="Unprocess" name="stat">
+                                                </select></th>
+                                                    <?php
+                                                        $select = mysqli_query($conn, "SELECT * FROM product_id, list_komponen WHERE product_id.id_product=list_komponen.id_komponen AND id_product_finish='$idp'");
+                                                        while($item=mysqli_fetch_array($select)){
+                                                            $idgk = $item['id_komponen'];
+                                                            $qtykomp = $item['quantity_komponen'];
+
+                                                            $kali = $qtykomp*$quantity[$i];
+                                                    ?>
                                                     <tr>
                                                         <td>#</td>
-                                                        <td><?=$data['nama'];?></td>
+                                                        <td><?=$item['nama'];?></td>
                                                         <td>SKU</td>
-                                                        <td><?=$data['quantity_komponen'];?></td>
-                                                        <td>Gudang</td>
+                                                        <td><?=$kali;?></td>
+                                                        <input type="text" value="<?=$kali;?>" name="quantity2[]">
+                                                        <td><select class="form-control" name="idk[]"><!-- Ambil Gudang komponen -->
+                                                            <?php
+                                                                $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idgk'");
+                                                                while($opsi = mysqli_fetch_array($selectopsi)){
+                                                                    
+                                                            ?>
+                                                                <option value="<?=$opsi['id_gudang'];?>"><?=$opsi['sku_gudang'];?></option>
+                                                            <?php
+                                                                }
+                                                            ?>
+                                                            </select></td>
+                                                            
                                                     </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
                                             </tr>
                                         <?php
                                                 }
