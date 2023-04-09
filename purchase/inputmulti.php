@@ -59,7 +59,7 @@ $inv = $_GET['invoice'];
                                          if(isset($_POST['ambildata'])){
                                             $nama = $_POST['nama'];
 
-                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product=toko_id.id_product AND nama LIKE '%$nama%'");
+                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product = toko_id.id_product AND nama LIKE '%$nama%'");
                                             $s = 1;
                                             while($data = mysqli_fetch_array($select)){
                                                 $name = $data['nama'];
@@ -68,7 +68,7 @@ $inv = $_GET['invoice'];
                                             <tr>
                                                 <td><?=$s++;?></td>
                                                 <td><?=$name;?></td>
-                                                <td><?=$data['sku'];?></td>
+                                                <td><?=$data['sku_toko'];?></td>
                                                 <td><input type="number" name="quantity[]" class="form-control">
                                                 <?php
                                                     $box = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE invoice='$inv'");

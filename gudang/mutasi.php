@@ -6,47 +6,8 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                            <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#smallModalUp">Mutasi</a>
+                            <a type="button" class="btn btn-outline-success" href="index.php?url=mutasilist">Mutasi</a>
                             </div>
-
-                            <div class="modal fade" id="smallModalUp" tabindex="-1">
-                                                <div class="modal-dialog modal-md">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title">Input Qty SKU Warehouse</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <br>
-                                                    <form class="row g-3" method="post" action="index.php?url=mutasilist" enctype="multipart/form-data">
-                                                        <br>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <input type="number" class="form-control" id="floatingName" name="qtyskugudang" placeholder="Box Number" required="">
-                                                            <label for="floatingName">Qty SKU Warehouse</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <select type="text" class="form-control" id="floatingName" name="stats" placeholder="Box Number" required="">
-                                                                <option selected value="On process">On process</option>
-                                                            </select>
-                                                            <label for="floatingName">Status</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <input readonly type="text" class="form-control" id="floatingName" value="<?= $_SESSION['nama_user'];?>" name="sender" placeholder="Box Number" required="">
-                                                            <label for="floatingName">Sender</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="text-center">
-                                                        <button type="submit" name="listmutasi" value="proses" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form><!-- End floating Labels Form -->
-                                                        <br>
-                                                    </div>
-                                                </div>
-                                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">

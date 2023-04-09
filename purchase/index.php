@@ -16,6 +16,16 @@ require 'php/function.php';
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <link href="../css/styles.css" rel="stylesheet" />
+        <style>
+            .zoomable {
+        width: 100px;
+        }
+
+        .zoomable:hover {
+        transform: scale(2.8);
+        transition: 0.3s ease;
+        }
+    </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -44,10 +54,7 @@ require 'php/function.php';
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Packing List
                             </a>
-                            <a class="nav-link" href="index.php?url=lokal">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Packing List Lokal
-                            </a>
+                            
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
                                     Approval
@@ -56,7 +63,6 @@ require 'php/function.php';
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="index.php?url=approve">Approval Item</a>
-                                    <a class="nav-link" href="index.php?url=approvelokal">Approval Item Lokal</a>
                                     <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
                                     
                                 </nav>

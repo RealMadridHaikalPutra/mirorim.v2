@@ -1,4 +1,3 @@
-
                 <div class="row">
         
                     <div class="card">
@@ -20,17 +19,20 @@
                         </div>
                     </div>
                     </div>
-                </section>
-                <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Items Box</h1>
                             <?php
+                                if(isset($_POST['inputnobox'])){
+                                    $box = $_POST['nobox'];
+                                                
+                                    $ambildata = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id WHERE item_id.id_box = boxorder_id.id_box AND box='$box'");
                             ?>
                             <div class="card-header">
                                 <i class="fas fa-box"></i>
+                                Box Items : <?=$box;?>
                             </div>
                             <?php
-                                
+                                }
                             ?>
                             <div class="card mb-4">
                         <div class="card-header">
@@ -44,53 +46,42 @@
                                             <h5 class="modal-title">Insert All</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form method="post" action="">
-                                        <?php
-                                            
-
-                                        ?>
-                                        <input type="hidden" name="count" value="">
-                                        <?php
-                                            
-                                        ?>
-                                            <div class="text-right m-2">
-                                                <button type="submit" name="submitquantity" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
-                                        
+                                        <form method="post">
+                                            <table class="table table-stripped">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Invoice</th>
-                                                    <th>Nobox</th>
-                                                    <th>Nama</th>
-                                                    <th>SKU</th>
-                                                    <th>Counting</th>
-                                                    <th>Note</th>
+                                                    <th>Box</th>
+                                                    <th>Item Name</th>
+                                                    <th>Quantity</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <?php
-                                                
-                                            ?>
+                                                <?php
+                                                    $select = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id, product_id WHERE item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
+                                                    $i = 1;
+                                                    while($data=mysqli_fetch_array($select)){
+                                                ?>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><input type="number" class="form-control" name="countinggudang[]" required="">
-                                                    <input type="hidden" name="idbarang[]" value=""></td>
-                                                    <td><input type="text" class="form-control" name="notegudang[]"></td>
-
+                                                    <td><?=$i++;?></td>
+                                                    <td><?=$data['invoice'];?></td>
+                                                    <td><?=$data['box'];?></td>
+                                                    <td><?=$data['nama'];?></td>
+                                                    <td><input type="quantity" name="quantity[]" value="<?=$data['quantity_count'];?>" class="form-control" require>
+                                                    <input type="hidden" value="<?=$data['id_item'];?>" name="list[]">
+                                                    <input type="hidden" value="<?=$data['id_item'];?>" name="ido">
+                                                    </td>
                                                 </tr>
-                                            <?php
-                                               
-                                            ?>
+                                                <?php
+                                                    }
+                                                ?>
                                             </tbody>
                                         </table>
+                                        <div class="text-right m-4">
+                                            <button type="submit" class="btn btn-outline-primary" name="inputquantityitem">Submit</button>
+                                        </div>
                                         </form>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -112,20 +103,38 @@
                                             </tr>
                                         </thead>
                                         <tbody >
-                                            
+                                            <?php
+                                            if(isset($_POST['inputnobox'])){
+                                                $box = $_POST['nobox'];
+                                                
+                                                $ambildata = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id, product_id, toko_id WHERE toko_id.id_product = product_id.id_product AND item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($ambildata)){
+                                                    $quantity = $data['quantity_count'];
+
+                                                     
+                                                
+                                            ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <th></th>
-                                                <th></th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><?=$i++;?></td>
+                                                <td>gambar</td>
+                                                <td><?=$data['status_item'];?></td>
+                                                <th><?=$data['invoice'];?></th>
+                                                <th><?=$data['box'];?></th>
+                                                <td><?=$data['nama'];?></td>
+                                                <td><?=$data['sku_toko'];?></td>
+                                                <?php
+                                                    if($quantity==0){
+                                                        echo "<td style='color: red;'>$quantity</td>";
+                                                    } else {
+                                                        echo "<td style='color: green;'>$quantity</td>";
+                                                    }
+                                                ?>
+                                                
                                             </form>
                                             </tr>
                                             <?php
-                                               
+                                                }}
                                             ?>
                                         </tbody>
                                         
@@ -135,4 +144,3 @@
                             </div>
                         </div>
                     </div>
-                </main>

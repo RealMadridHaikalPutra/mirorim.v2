@@ -21,6 +21,13 @@
                                     <button class="btn btn-outline-primary" type="submit" action="" name="qtyvariant">Submit</button>
                                 </div>
                                 </div>
+                                <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="nama">Product List Existing</label>
+                                    <br>
+                                    <a class="btn btn-outline-dark" type="button" href="index.php?url=product">List</a>
+                                </div>
+                                </div>
                             </div>
                             </form>
                             <hr>
@@ -29,14 +36,14 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="image">Image</label>
-                                <input class="form-control" name="file" id="image" type="file" require>
+                                <input class="form-control" name="file" id="image" type="file" required="">
                             </div>
                             </div>
                             
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama">Name Item</label>
-                                <input class="form-control" name="nama" id="nama" type="text" require>
+                                <input class="form-control" name="nama" id="nama" type="text" required="">
                             </div>
                             </div>
                             </div>
@@ -51,16 +58,16 @@
                                         <tbody>
                                         <?php
                                          if(isset($_POST['qtyvariant'])){
-                                                $jum = $_POST['jum'];
                                                 $s = 1;
-                                                $jumlah = $jum+$s;
+                                                $jum = $_POST['jum'];
 
-                                                for($i=1; $i < $jumlah; $i++){
+                                                for($i=0; $i < $jum; $i++){
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" class="form-control" name="variant[]" require=""></td>
-                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
+                                                    <input type="hidden" name="jum[]" value="<?=$jum;?>">
+                                                    <input type="hidden" name="jenis" value="Mentah">
                                                 </td>
                                             </tr>
                                             <?php

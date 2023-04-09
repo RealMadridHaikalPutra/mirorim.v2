@@ -32,9 +32,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name Item</th>
-                                                <th>SKU</th>
                                                 <th>Quantity</th>
-                                                <th>Worker</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,13 +46,11 @@
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
-                                                <td><input type="text" class="form-control" name="namaitem[]" require></td>
-                                                <td><input type="text" class="form-control" name="skuitem[]" require></td>
+                                                <td><input type="text" class="form-control" name="nama[]" require></td>
                                                 <td><input type="text" class="form-control" name="quantity[]" require="">
                                                     <input type="hidden" name="jum" value="<?=$jum;?>">
                                                     <input type="hidden" name="status" value="Preparation">
                                                 </td>
-                                                <td><input readonly type="text" class="form-control" name="worker[]" value="<?=$_SESSION['nama_user'];?>" require=""></td>
                                             </tr>
                                             <?php
                                                 }}

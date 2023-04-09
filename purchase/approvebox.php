@@ -23,62 +23,61 @@
                                                     <th>No</th>
                                                     <th>Resi</th>
                                                     <th>Invoice</th>
-                                                    <th>Kubikasi</th>
-                                                    <th>Kubik Count</th>
+                                                    <th>Box Order</th>
+                                                    <th>Box Total</th>
+                                                    <th>Kubik</th>
+                                                    <th>Kubik Total</th>
                                                     <th>Selisih</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-borderless">
                                             <?php
-
+                                                $select = mysqli_query($conn, "SELECT resi, invoice, box_order FROM boxorder_id, delivery_id WHERE boxorder_id.id_delivery = delivery_id.id_delivery AND status_box='Not Approved' AND status_delivery='Not Approved'");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($select)){
                                             ?>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td> m³</td>
+                                                    <td><?=$i++;?></td>
+                                                    <td><?=$data['resi'];?></td>
+                                                    <td><?=$data['invoice'];?></td>
+                                                    <td><?=$data['box_order'];?></td>
                                             <?php
-                                                
+                                                }
                                             ?>
                                                     
                                             <?php
 
-                                                    //$ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, SUM(ctkubik) AS ctkubik FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
-                                                    //$data = mysqli_fetch_array($ambil);
-                                                    //$order = ($data['kubik']);
-                                                    //$datang = ($data['ctkubik']);
-                                                    
-                                                    //$kurang =($datang-$order);
-                                                    //$persen = (100);
-                                                    //$bagi = ($kurang) *$persen;
-                                                    
+                                                $select = mysqli_query($conn, "SELECT SUM(kubik_order) AS kubik_order, kubik_total, box_total FROM boxorder_id, delivery_id WHERE boxorder_id.id_delivery = delivery_id.id_delivery AND status_box='Not Approved' AND status_delivery='Not Approved'");
+                                                $data = mysqli_fetch_array($select);
+                                                $total = $data['kubik_total'];
+                                                $order = $data['kubik_order'];
+
+                                                $kurang = $order-$total;
+                                                $persen = 100;
+                                                $kali = $kurang*$persen;
                                                    
                                             ?>
-                                                 <td style='font-weight: bold;'>m³</td>
-                                                 <td>%</td>
+                                                    <td><?=$data['box_total'];?></td>
+                                                    <td><?=number_format($data['kubik_order']);?> m³</td>
+                                                    <th><?=$data['kubik_total'];?>m³</th>
+                                                    <th><?=number_format($kurang);?></th>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <form method="post">
                                                 <?php
-                                                   
+                                                   $select = mysqli_query($conn, "SELECT * FROM boxorder_id, delivery_id WHERE boxorder_id.id_delivery = delivery_id.id_delivery AND status_box='Not Approved' AND status_delivery='Not Approved'");
+                                                   while($data=mysqli_fetch_array($select)){
                                                 ?>
-                                                    
+                                                    <input type="hidden" name="idb[]" value="<?=$data['id_box'];?>">
+                                                    <input type="hidden" name="idd" value="<?=$data['id_delivery'];?>">
+                                                    <input type="hidden" name="status" value="Approved">
                                                 <?php
-                                                    
-                                                ?>
-                                                <?php
-                                                    
-                                                    
-                                                ?>
-                                                
-                                                
-                                                <?php
-                                                    
+                                                   }
                                                 ?>
                                                     
                                             <div class="text-right m-2">
-                                                <button type="submit" name="submitinserttai" class="btn btn-primary">Approve</button>
+                                                <button type="submit" name="approvebox" class="btn btn-primary">Approve</button>
                                             </div>
                                         </form>
                                     </div>
@@ -95,31 +94,34 @@
                                                 <th>Invoice</th>
                                                 <th>Nobox</th>
                                                 <th>Qty Box</th>
-                                                <th>Box Count</th>
                                                 <th>Kubikasi</th>
                                                 <th>Status</th>
-                                                <th>Note</th>
+                                                <th>Form</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                
+                                                $select = mysqli_query($conn, "SELECT * FROM boxorder_id, delivery_id WHERE boxorder_id.id_delivery = delivery_id.id_delivery");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($select)){
                                                                                     
                                             ?>
                                             <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td> m³</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?=$i++;?></td>
+                                            <td><?=$data['resi'];?></td>
+                                            <td><?=$data['invoice'];?></td>
+                                            <td><?=$data['box'];?></td>
+                                            <td><?=$data['box_order'];?></td>
+                                            <td><?=$data['kubik_order'];?> m³</td>
+                                            <td><?=$data['status_box'];?></td>
+                                            <td><?=$data['pengiriman'];?></td>
 
                                                 
                                               
                                             </tr>
+                                            <?php
+                                                }
+                                            ?>
 
                                            
                                             </tbody>

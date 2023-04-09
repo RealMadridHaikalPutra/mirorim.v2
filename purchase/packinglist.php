@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="col-md-9 ml-5">
                                         <div class="form-floating">
-                                            <input type="text" id="floatingName" name="kubikasi" pattern="[0-100 0-100.0-100]{1-5}" placeholder="Box Number" class="form-control" required="">
+                                            <input type="text" id="floatingName" name="kubikasi" pattern="[0-100 0-100.0-100]{1-5}" placeholder="Box Number" class="form-control">
                                             <label for="floatingName">Kubikasi</label>
                                         </div>
                                         </div>
@@ -72,7 +72,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $ambildata = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE datang<>'lokal'");
+                                                $ambildata = mysqli_query($conn, "SELECT * FROM boxorder_id");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambildata)){
                                                     $inv = $data['invoice'];
@@ -83,7 +83,7 @@
                                                 <td><?=$data['resi'];?></td>
                                                 <td class="text-uppercase"><?=$data['box'];?></td>
                                                 <td><?=$data['kubik_order'];?> m³</td>
-                                                <td><?=$data['status'];?></td>
+                                                <td><?=$data['status_box'];?></td>
                                             </tr>
                                             <!--Modal-->
                                             <div class="modal fade" id="largeModal<?=$data['invoice'];?>" tabindex="-1">
@@ -97,7 +97,7 @@
                                                     <!--Card-->
                                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                                     <?php
-                                                        $ambilitem = mysqli_query($conn, "SELECT * FROM order_id,boxorder_id,product_id, toko_id WHERE boxorder_id.id_box=order_id.id_box AND order_id.id_product = product_id.id_product AND toko_id.id_product=product_id.id_product AND invoice='$inv' ORDER BY nama ASC");
+                                                        $ambilitem = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id, product_id, toko_id WHERE boxorder_id.id_box=item_id.id_box AND product_id.id_product = toko_id.id_product AND item_id.id_product = product_id.id_product AND invoice='$inv' ORDER BY nama ASC");
                                                         $s = 1;
                                                         while($item=mysqli_fetch_array($ambilitem)){
                                                     ?>
@@ -106,9 +106,9 @@
                                                                 <div class="card-header">Items <?=$s++;?></div>
                                                                 <div class="card-body">
                                                                     <h5 class="card-title">Nama Barang : <?=$item['nama'];?></h5>
-                                                                    <h5 class="card-title text-uppercase">SKU : <?=$item['sku'];?></h5>
+                                                                    <h5 class="card-title">SKU : <?=$item['sku_toko'];?></h5>
                                                                     <h5 class="card-title">Quantity : <?=$item['quantity_order'];?></h5>
-                                                                    <h5 class="card-title">Status : <?=$item['status'];?></h5>
+                                                                    <h5 class="card-title">Status : <?=$item['status_item'];?></h5>
                                                                 </div>
                                                             </div>
                                                         </div>

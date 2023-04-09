@@ -8,7 +8,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <a type="button" class="btn btn-outline-primary" href="index.php?url=insertitem5">Insert Item</a>
-                                <a type="button" class="btn btn-outline-danger" href="index.php?url=exitlist5">Exit Item</a>
+                                <a type="button" class="btn btn-outline-danger" href="index.php?url=exitlist5">Refill</a>
                                 <a type="button" class="btn btn-outline-danger" href="#">History</a>
                             </div>
                             <div class="card-body">

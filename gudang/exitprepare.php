@@ -6,6 +6,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
+                                <a type="button" href="index.php?url=request" class="btn btn-outline-success">Request</a>
                                 <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-primary">Check List</a>
                             </div>
                             <div class="modal fade" id="smallModalceklist" tabindex="-1">
@@ -94,43 +95,25 @@
                                                 <th>Quantity</th>
                                                 <th>Time</th>
                                                 <th>Status</th>
-                                                <th>Approval</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                               /* $ambil = mysqli_query($konek, "SELECT * FROM exititem WHERE status='Preparation'");
+                                                $select = mysqli_query($conn, "SELECT nama, sku_toko, worker, quantity_req, date_start, status_prepare FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish");
                                                 $i = 1;
-                                                while($data=mysqli_fetch_array($ambil)){
-                                                    $nama = $data['nama'];
-                                                    $sku = $data['sku'];
-                                                    $picker = $data['picker'];
-                                                    $quantity = $data['quantityrep'];
-                                                    $status = $data['status'];
-                                                    $tracking = $data['stat'];
-                                                    $time = $data['timeout'];
-                                                    $worker = $data['worker'];
+                                                while($data=mysqli_fetch_array($select)){
                                             ?>
-                                            <tr data>
-                                                <th><?=$i++;?></th>
-                                                <td><?=$nama;?></td>
-                                                <td class="text-uppercase"><?=$sku;?></td>
-                                                <td><?=$worker;?></td>
-                                                <td><?=$quantity;?></td>
-                                                <td><?=$time;?></td>
-                                                <td><?=$status;?></td>
-
-                                            <?php
-                                                 if($tracking=='Approved'){
-                                                    echo "<td style='color: green;'>$tracking</td>";
-                                                } else {
-                                                    echo "<td style='color: red;'>$tracking</td>";
-                                                }
-                                            ?>
-                                                
+                                            <tr>
+                                                <td><?=$i++;?></td>
+                                                <td><?=$data['nama'];?></td>
+                                                <td><?=$data['sku_toko'];?></td>
+                                                <td><?=$data['worker'];?></td>
+                                                <td><?=$data['quantity_req'];?></td>
+                                                <td><?=$data['date_start'];?></td>
+                                                <td><?=$data['status_prepare'];?></td>
                                             </tr>
                                             <?php
-                                                }*/
+                                                }
                                             ?>
                                         </tbody>
                                     </table>
