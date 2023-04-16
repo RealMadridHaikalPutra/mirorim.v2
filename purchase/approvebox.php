@@ -52,15 +52,15 @@
                                                 $total = $data['kubik_total'];
                                                 $order = $data['kubik_order'];
 
-                                                $kurang = $order-$total;
+                                                $kurang = $total-$order;
                                                 $persen = 100;
                                                 $kali = $kurang*$persen;
                                                    
                                             ?>
                                                     <td><?=$data['box_total'];?></td>
-                                                    <td><?=number_format($data['kubik_order']);?> m³</td>
+                                                    <td><?=$data['kubik_order'];?> m³</td>
                                                     <th><?=$data['kubik_total'];?>m³</th>
-                                                    <th><?=number_format($kurang);?></th>
+                                                    <th><?=$kurang;?></th>
                                                 </tr>
                                             </tbody>
                                         </table>

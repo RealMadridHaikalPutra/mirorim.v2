@@ -20,24 +20,35 @@
                                                 <th>SKU Store</th>
                                                 <th>SKU Warehouse</th>
                                                 <th>Warehouse</th>
-                                                <th>Quantity</th>
+                                                <th>Jenis</th>
+                                                <th>Qty Stok</th>
                                             </tr>
                                         </thead>
                                         
                                         
                                         <tbody>
                                         <?php
-                                           $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id, gudang_id WHERE product_id.id_product=toko_id.id_product AND product_id.id_product=gudang_id.id_product AND id_gudang<>'' ");
+                                           $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id, gudang_id WHERE product_id.id_product=toko_id.id_product AND product_id.id_product=gudang_id.id_product AND jenis<>'Mateng' ");
                                            $i = 1;
                                            while($data=mysqli_fetch_array($select)){
+                                            //cek data gambar ada apa kagak
+                                            $gambar = $data['image'];
+                                            if($gambar==null){
+                                                // jika tidak ada gambar
+                                                $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                            } else {
+                                                //jika ada gambar
+                                                $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                            }    
                                         ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal">
                                                 <th><?=$i++;?></th>
-                                                <td>Gambar</td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td class="text-uppercase"><?=$data['sku_toko'];?></td>
                                                 <td class="text-uppercase"><?=$data['sku_gudang'];?></td>
                                                 <td><?=$data['lokasi_gudang'];?></td>
+                                                <td><?=$data['jenis'];?></td>
                                                 <td><?=$data['quantity'];?></td>
                                             </tr>
                                             <?php

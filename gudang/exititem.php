@@ -107,6 +107,8 @@
                             <th>Name Item</th>
                             <th>SKU Store</th>
                             <th>Req User</th>
+                            <th>Hours Out</th>
+                            <th>Picker</th>
                             <th>Quantity</th>
                             <th>Status</th>
                             <th>Approval</th>
@@ -123,7 +125,9 @@
                                 <th><?= $i++; ?></th>
                                 <td><?= $data['nama']; ?></td>
                                 <td class="text-uppercase"><?= $data['sku_toko']; ?></td>
-                                <td>loh</td>
+                                <td>Session Login</td>
+                                <td><?= $data['date']; ?></td>
+                                <td>Session Login</td>
                                 <td><?= $data['quantity_req']; ?></td>
                                 <td><?= $data['type_req']; ?></td>
 

@@ -112,12 +112,20 @@
                                                 while($data=mysqli_fetch_array($ambildata)){
                                                     $quantity = $data['quantity_count'];
 
-                                                     
+                                                //cek data gambar ada apa kagak
+                                                $gambar = $data['image'];
+                                                if($gambar==null){
+                                                    // jika tidak ada gambar
+                                                    $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                } else {
+                                                    //jika ada gambar
+                                                    $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                                }     
                                                 
                                             ?>
                                             <tr>
                                                 <td><?=$i++;?></td>
-                                                <td>gambar</td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['status_item'];?></td>
                                                 <th><?=$data['invoice'];?></th>
                                                 <th><?=$data['box'];?></th>

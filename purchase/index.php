@@ -54,7 +54,10 @@ require 'php/function.php';
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Packing List
                             </a>
-                            
+                            <a class="nav-link" href="index.php?url=product">
+                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                Product List
+                            </a>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
                                     Approval

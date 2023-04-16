@@ -28,7 +28,6 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Picker</th>
                                                 <th>SKU</th>
                                                 <th>Status</th>
                                                 <th>Req User</th>
@@ -46,7 +45,6 @@
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
-                                                <td>Picker</td>
                                                 <td><input type="text" name="sku[]" class="form-control"></td>
                                                 <td>
                                                     <select id="selectReq" name="status[]" class="form-control">
@@ -55,7 +53,7 @@
                                                         <option value="request">Request</option>
                                                     </select>
                                                 </td>
-                                                <td>Irham</td>
+                                                <td>Session Login</td>
                                                 <td>
                                                     <input type="number" id="myQuantity" name="quantity[]" class="form-control">
                                                     <input type="hidden" value="unprocessed" name="stat">

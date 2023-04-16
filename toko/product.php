@@ -32,10 +32,20 @@
                                                     $i = 1;
                                                     while($data=mysqli_fetch_array($select)){
                                                         $sku = $data['sku_toko'];
+
+                                                        //cek data gambar ada apa kagak
+                                                    $gambar = $data['image'];
+                                                    if($gambar==null){
+                                                        // jika tidak ada gambar
+                                                        $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                    } else {
+                                                        //jika ada gambar
+                                                        $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                                    }
                                                 ?>
                                                 <tr>
                                                     <td><?=$i++;?></td>
-                                                    <td>Gambar</td>
+                                                    <td><?=$img;?></td>
                                                     <td><?=$data['nama'];?></td>
                                                     <td><input type="text" name="sku[]" value="<?=$sku;?>" class="form-control">
                                                         <input type="hidden" name="idp[]" value="<?=$data['id_product'];?>">
@@ -72,10 +82,19 @@
                                                 $ambil = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product = toko_id.id_product AND sku_toko<>'-'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambil)){
+                                                     //cek data gambar ada apa kagak
+                                                     $gambar = $data['image'];
+                                                     if($gambar==null){
+                                                         // jika tidak ada gambar
+                                                         $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                     } else {
+                                                         //jika ada gambar
+                                                         $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                                     }
                                             ?>
                                             <tr>        
                                                 <td><?=$i++;?></td>
-                                                <td></td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
                                                 <td><?=$data['jenis'];?></td>

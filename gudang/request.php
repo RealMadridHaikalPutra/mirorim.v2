@@ -28,10 +28,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Picker</th>
                                                 <th>Nama Item</th>
                                                 <th>Req User</th>
                                                 <th>Quantity</th>
+                                                <th>Type Req</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -45,9 +45,14 @@
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
-                                                <td>Picker</td>
                                                 <td><input type="text" name="nama[]" class="form-control"></td>
-                                                <td>Irham</td>
+                                                <td>Session Login</td>
+                                                <td>
+                                                <select class="form-control" name="typereq[]">
+                                                        <option value="Prioritas" class="form-control">Prioritas</option>
+                                                        <option value="Standar" class="form-control">Standar</option>
+                                                    </select>
+                                                </td>
                                                 <td>
                                                     <input type="number" name="quantity[]" class="form-control">
                                                     <input type="hidden" value="unprocessed" name="stat">

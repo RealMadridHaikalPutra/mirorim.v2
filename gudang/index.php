@@ -60,7 +60,7 @@ require 'php/function.php';
                         <div class="collapsed" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="index.php?url=gudang">Warehouse</a>
-                                <a class="nav-link" href="index.php?url=gudang5">Warehouse 5</a>
+                                <a class="nav-link" href="index.php?url=gudang5">Warehouse Matang</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

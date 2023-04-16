@@ -26,10 +26,19 @@
                                            while($data=mysqli_fetch_array($select)){
                                                 $nama = $data['nama'];
                                                 $idp = $data['id_product'];
+                                                 //cek data gambar ada apa kagak
+                                            $gambar = $data['image'];
+                                            if($gambar==null){
+                                                // jika tidak ada gambar
+                                                $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                            } else {
+                                                //jika ada gambar
+                                                $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                            }   
                                         ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal">
                                                 <th><?=$i++;?></th>
-                                                <td>Gambar</td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
                                             </tr>

@@ -24,10 +24,19 @@
                                                 $ambil = mysqli_query($conn, "SELECT * FROM product_id WHERE jenis='Mentah'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambil)){
+                                                    //cek data gambar ada apa kagak
+                                            $gambar = $data['image'];
+                                            if($gambar==null){
+                                                // jika tidak ada gambar
+                                                $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                            } else {
+                                                //jika ada gambar
+                                                $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                            }   
                                             ?>
                                             <tr>        
                                                 <td><?=$i++;?></td>
-                                                <td></td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['jenis'];?></td>
                                             </tr>

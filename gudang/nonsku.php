@@ -26,16 +26,25 @@
                                            while($data=mysqli_fetch_array($select)){
                                                 $nama = $data['nama'];
                                                 $idp = $data['id_product'];
+                                                    //cek data gambar ada apa kagak
+                                            $gambar = $data['image'];
+                                            if($gambar==null){
+                                                // jika tidak ada gambar
+                                                $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                            } else {
+                                                //jika ada gambar
+                                                $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
+                                            }   
                                         ?>
-                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal">
+                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idp;?>">
                                                 <th><?=$i++;?></th>
-                                                <td>Gambar</td>
+                                                <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
                                                 <td><?=$data['quantity_count'];?></td>
                                             </tr>
                                         
-                                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                            <div class="modal fade" id="largeModal<?=$idp;?>" tabindex="-1">
                                             <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -48,29 +57,19 @@
                                             <div class="modal-body">
                                                     <br>
                                                     <input type="hidden" value="<?=$data['id_product'];?>" name="idp">
-                                                    <?php
-                                                        $selectlagi = mysqli_query($conn, "SELECT sku_gudang FROM gudang_id, product_id WHERE gudang_id.id_product=product_id.id_product AND nama='$nama'");
-
-                                                        foreach ($selectlagi as $list){
-                                                            $skuada = $list['sku_gudang'];
-                                                        
-                                                    ?>
                                                             
                                                             <div class="col-sm-12">
                                                         <label>SKU Gudang</label>
                                                         <div class="form-floating">
-                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="skug" value="<?=$skuada;?>" placeholder="Warehouse" require>
+                                                        <input type="text" class="form-control text-uppercase" id="floatingName" name="skug" placeholder="Warehouse" require>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
-                                                    <?php
-                                                       }
-                                                    ?>
                                                     
                                                     <div class="col-sm-12">
                                                         <label>Quantity</label>
                                                         <div class="form-floating">
-                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Warehouse" require>
+                                                        <input type="text" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Warehouse" require>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
