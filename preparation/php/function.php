@@ -7,6 +7,7 @@ if(isset($_POST['addkomponen'])){
     $nama = $_POST['nama'];
     $jumlah = $_POST['jum'];
     $jenis = $_POST['jenis'];
+    $reject = "reject";
 
     $jum = count($jumlah);
     for($i = 0; $i < $jum; $i++){
@@ -37,7 +38,23 @@ if(isset($_POST['addkomponen'])){
 
                     if($select){
                         $insert = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp')");
-                        header('location:?url=komponen');
+
+                        if($insert){
+                            $addnew1 = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama[$i]','$reject')");
+                                if($addnew1){
+                                    $select1 = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
+                                    $data1 = mysqli_fetch_array($select);
+                                    $idp1 = $data1['id_product'];
+
+                                    if($select1){
+                                        $insert1 = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp1')");
+                                        header('location:?url=komponen');
+                                    } else {
+
+                                    }
+                        } else {
+
+                        }}
                     } else {
 
                     }
@@ -146,4 +163,5 @@ if(isset($_POST['accrequestdone'])){
 
     }
 }
+
 ?>

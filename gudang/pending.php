@@ -21,7 +21,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                           $select = mysqli_query($conn, "SELECT * FROM product_id, item_id, toko_id WHERE toko_id.id_product = product_id.id_product AND item_id.id_product = product_id.id_product AND quantity_count<>0 AND status_item='Approved'");
+                                           $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE toko_id.id_product = product_id.id_product AND jenis<>'Mentah'");
                                            $i = 1;
                                            while($data=mysqli_fetch_array($select)){
                                                 $nama = $data['nama'];
@@ -32,7 +32,6 @@
                                                 <td>Gambar</td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
-                                                <td><?=$data['quantity_count'];?></td>
                                             </tr>
                                         
                                             <div class="modal fade" id="largeModal" tabindex="-1">
@@ -48,25 +47,13 @@
                                             <div class="modal-body">
                                                     <br>
                                                     <input type="hidden" value="<?=$data['id_product'];?>" name="idp">
-                                                    <?php
-                                                        $selectlagi = mysqli_query($conn, "SELECT sku_gudang FROM gudang_id, product_id WHERE gudang_id.id_product=product_id.id_product AND nama='$nama'");
-
-                                                        foreach ($selectlagi as $list){
-                                                            $skuada = $list['sku_gudang'];
-                                                        
-                                                    ?>
-                                                            
-                                                            <div class="col-sm-12">
+                                                    <div class="col-sm-12">
                                                         <label>SKU Gudang</label>
                                                         <div class="form-floating">
-                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="skug" value="<?=$skuada;?>" placeholder="Warehouse" require>
+                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="skug" placeholder="Warehouse" require>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
-                                                    <?php
-                                                       }
-                                                    ?>
-                                                    
                                                     <div class="col-sm-12">
                                                         <label>Quantity</label>
                                                         <div class="form-floating">

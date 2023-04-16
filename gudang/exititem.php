@@ -1,3 +1,20 @@
+<script
+ src="https://code.jquery.com/jquery-3.4.1.min.js"
+ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+ crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/i18n/id.js" type="text/javascript"></script>
+
+ <script type="text/javascript">
+  $(document).ready(function() {
+      $('#hobi').select2({
+       placeholder: "Pilih Hobi",
+    allowClear: true,
+    language: "id"
+      });
+  });
+ </script>
 <div class="container-fluid">
     <h1 class="mt-4">History Refill & Request</h1>
     <ol class="breadcrumb mb-4">
@@ -49,18 +66,21 @@
                                         }
                                         ?>
                                         
-                                        <td><select class="form-control" name="idg[]">
-                                        <?php
+                                        <td valign="top">
+
+                                            <select class="form-control" name="idg[]">
+                                                <?php
                                             $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idp'");
                                             $i = 1;
                                             while($opsi = mysqli_fetch_array($selectopsi)){
                                                 
-                                        ?>
+                                                ?>
                                             <option value="<?=$opsi['id_gudang'];?>"><?=$opsi['sku_gudang'];?></option>
-                                        <?php
+                                            <?php
                                             }
-                                        ?>
-                                        </select></td>
+                                            ?>
+                                            </td>
+                                        </select>
                                         <td><input type="checkbox" name="cek[]" value="<?= $data['id_request']; ?>" class="form-check">
                                             <input type="hidden" value="On Process" name="stat">
                                         </td>

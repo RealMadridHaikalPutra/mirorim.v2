@@ -24,6 +24,7 @@
                             </div>
                             </form>
                             <hr>
+                            <form method="post">
                             <div class="table-responsive">
                                     <table class="table table-hover table-bordered" width="100%" cellspacing="0">
                                         <thead>

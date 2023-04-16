@@ -48,6 +48,7 @@
                                             </form>
                                         </div>
                                         </div>
+                                <a type="button" class="btn btn-outline-success" href="index.php?url=nonsku">Pending</a>
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">

@@ -117,19 +117,20 @@ if(isset($_POST['cektoko'])){
     $quantity = $_POST['quantity'];
     $stat = $_POST['stat'];
     $idg = $_POST['idg'];
+    
 
     $jum = count($idt);
     for($i = 0; $i < $jum; $i++){
-        $select = mysqli_query($conn, "SELECT * FROM request_id WHERE id_request='$idt[$i]'");
-        $data = mysqli_fetch_array($select);
-        $qty = $data['quantity_req'];
-        if($qty==0){
-            $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', status_req='$stat', id_gudang='$idg[$i]' WHERE id_request='$idt[$i]'");
-            header('location:?url=exititem');
-        } else {
-            $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat', id_gudang='$idg[$i]' WHERE id_request='$idt[$i]'");
-            header('location:?url=exititem');
-        }
+            $select = mysqli_query($conn, "SELECT * FROM request_id WHERE id_request='$idt[$i]'");
+            $data = mysqli_fetch_array($select);
+            $qty = $data['quantity_req'];
+            if($qty==0){
+                $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', status_req='$stat', id_gudang='$idg[$i]' WHERE id_request='$idt[$i]'");
+                header('location:?url=exititem');
+            } else {
+                $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat', id_gudang='$idg[$i]' WHERE id_request='$idt[$i]'");
+                header('location:?url=exititem');
+            }
         
     } {
 
