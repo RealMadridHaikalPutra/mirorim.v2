@@ -6,7 +6,59 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                            <a type="button" class="btn btn-outline-success" href="index.php?url=mutasilist">Mutasi</a>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-success" data-bs>Mutasi</button>
+                                <div class="modal fade" id="smallModalceklist" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Approve Refill</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" action="">
+                                                <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
+
+                                                    <thead style="font-size: 15px;">
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Name Item</th>
+                                                            <th>SKU lama</th>
+                                                            <th>SKU Baru</th>
+                                                            <th>Quantity</th>
+                                                            <th>Checklist</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $select = mysqli_query($conn, "SELECT * FROM mutasi_id, gudang_id, product_id WHERE mutasi_id.id_gudang=gudang_id.id_gudang AND gudang_id.id_product=product_id.id_product AND status_mutasi='Not Approved'");
+                                                        $i = 1;
+                                                        while ($data = mysqli_fetch_array($select)) {
+                                                            $idg = $data['id_gudang'];
+                                                        ?>
+                                                            <tr>
+                                                                <td><?= $i++; ?></td>
+                                                                <td><?= $data['nama']; ?></td>
+                                                                <td><?= $data['skug_lama']; ?></td>
+                                                                <td><?= $data['skug_baru']; ?></td>
+                                                                <td><?= $data['quantity_out']; ?></td>
+                                                                <td><input type="checkbox" value="<?= $data['id_gudang']; ?>" name="cek[]" class="form-input"></td>
+                                                                <input type="hidden" name="idg[]" value="<?= $data['id_gudang']; ?>">
+                                                                <input type="hidden" name="idm[]" value="<?= $data['id_mutasi']; ?>">
+                                                                <input type="hidden" name="stat" value="Approved">
+
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-right m-2">
+                                                    <button type="submit" name="mutasiacc" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

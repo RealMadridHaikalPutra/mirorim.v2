@@ -71,6 +71,7 @@ require 'php/function.php';
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="index.php?url=mutasi">Mutasi Warehouse</a>
+                                <a class="nav-link" href="index.php?url=approvemutasi">Mutasi Approve</a>
                                 <a class="nav-link" href="index.php?url=exititem">Request & Refill</a>
                                 <a class="nav-link" href="index.php?url=exitprepare">Req Preparation</a>
                             </nav>

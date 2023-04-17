@@ -31,7 +31,10 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama - Varian</th>
-                                                <th>SKU</th>
+                                                <th>SKU Lama</th>
+                                                <th>Quantity</th>
+                                                <th>-></th>
+                                                <th>SKU Baru</th>
                                                 <th>Quantity</th>
                                             </tr>
                                         </thead>
@@ -40,24 +43,24 @@
                                          if(isset($_POST['ambildata'])){
                                             $nama = $_POST['nama'];
 
-                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product=toko_id.id_product AND nama LIKE '%$nama%'");
+                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, gudang_id WHERE gudang_id.id_product=product_id.id_product AND nama LIKE '%$nama%'");
                                             $s = 1;
                                             while($data = mysqli_fetch_array($select)){
                                                 $name = $data['nama'];
+                                                $idg = $data['id_gudang'];
+                                                $skug = $data['sku_gudang'];
                                             ?>
 
                                             <tr>
                                                 <td><?=$s++;?></td>
                                                 <td><?=$name;?></td>
-                                                <td><?=$data['sku'];?></td>
-                                                <td><input type="number" name="quantity[]" class="form-control">
-                                                <?php
-                                                    $box = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE invoice='$inv'");
-                                                    $idbc = mysqli_fetch_array($box);
-                                                    $idb = $idbc['id_box'];
-                                                ?>
-                                                <input type="hidden" value="<?=$idb;?>" name="idb">
-                                                <input type="hidden" value="<?=$name;?>" name="nama[]">
+                                                <td><input type="text" name="skug1[]" class="form-control" value="<?=$skug;?>" readonly></td>
+                                                <td><input type="number" name="quantity1[]" class="form-control" value="<?=$data['quantity'];?>" readonly></td>
+                                                <th>->
+                                                    <input type="text" name="idg[]" value="<?=$idg;?>">
+                                                </th>
+                                                <td><input type="text" name="skug[]" class="form-control" required></td>
+                                                <td><input type="number" name="quantity[]" class="form-control" value="<?=$data['quantity'];?>" required></td>
                                             </tr>
                                             <?php
                                                 }}
@@ -66,7 +69,7 @@
                                             </tbody>
                                     </table>
                                     <div class="text-right">
-                                        <button type="submit" class="btn btn-primary" name="inputorder">Submit</button>
+                                        <button type="submit" class="btn btn-primary" name="mutasi">Submit</button>
                                     </div>
                                 </div>
                             </form>

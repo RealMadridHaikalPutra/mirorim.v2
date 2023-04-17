@@ -50,25 +50,6 @@ if(isset($_POST['approverefill'])){
                 if($selectopsi){
                     $out = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idg'");
                     header('location:?url=approve');
-                    // if($out){
-                    //     $select = mysqli_query($conn, "SELECT * FROM total_req WHERE id_toko='$idk[$i]'");
-                    //     $item = mysqli_fetch_array($select);
-                    //     $qtytotal = $item['quantity'];
-                    //     $hari = $item['hari'];
-
-                    //     $tambah = $qtytotal+$quantity[$i];
-                    //     $haritambah = $hari+$i;
-                    //     $i = 1;
-                    //     $hitung = mysqli_num_rows($select);
-
-                    //     if($hitung==0){
-                    //         $insert = mysqli_query($conn, "INSERT INTO total_req(id_toko, quantity, hari) VALUES('$idk[$i]','$quantity[$i]','$i')");
-                    //         header('location:?url=approve');
-                    //     } else {
-                    //         $insertdata = mysqli_query($conn, "UPDATE total_req SET quantity='$tambah', hari='$haritambah' WHERE id_toko='$idk[$i]'");
-                    //         header('location:?url=approve');
-                    //     }
-                    // }
                 } else {
 
                 }
@@ -79,6 +60,22 @@ if(isset($_POST['approverefill'])){
             $update = mysqli_query($conn, "UPDATE request_id SET quantity_count='$quantity[$i]' WHERE id_request='$idt[$i]'");
             header('location:?url=approve');
         }
+    } {
+
+    }
+}
+
+if(isset($_POST['approvereadmin'])){
+    $quantityr = $_POST['quantityr'];
+    $quantityc = $_POST['quantityc'];
+    $stat = $_POST['stat'];
+    $idt = $_POST['idt'];
+    $idk = $_POST['idk'];
+
+    $jum = count($idt);
+    for($i = 0; $i < $jum; $i++){
+        $update = mysqlI_query($conn, "UPDATE request_id SET quantity_req='$quantityr[$i]', quantity_count='$quantityc[$i]' WHERE id_request='$idt[$i]'");
+        header('location:?url=approveadmin');
     } {
 
     }
