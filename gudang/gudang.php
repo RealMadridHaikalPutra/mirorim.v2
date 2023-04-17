@@ -7,7 +7,6 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <a type="button" class="btn btn-outline-primary" href="index.php?url=boxlist">Box List</a>
-                                <a type="button" class="btn btn-outline-success" href="index.php?url=pending">New SKU</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

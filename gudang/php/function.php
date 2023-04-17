@@ -234,7 +234,7 @@ if(isset($_POST['mutasi'])){
             if($skug==$skug1){
                 
             } else {
-                $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
                 header('location:?url=mutasi');
             }
         } else {
@@ -269,7 +269,7 @@ if(isset($_POST['mutasiacc'])){
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $select = mysqli_query($conn, "SELECT * FROM mutasi_id WHERE id_mutasi='$idmm[$i]'");
+        $select = mysqli_query($conn, "SELECT * FROM mutasi_id WHERE id_mutasi='$idm[$i]'");
         $data = mysqli_fetch_array($select);
         $skug = $data['skug_baru'];
 

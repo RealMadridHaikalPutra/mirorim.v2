@@ -33,7 +33,7 @@
                                                 <th>Nama - Varian</th>
                                                 <th>SKU Lama</th>
                                                 <th>Quantity</th>
-                                                <th>-></th>
+                                                <th>=></th>
                                                 <th>SKU Baru</th>
                                                 <th>Quantity</th>
                                             </tr>
@@ -56,9 +56,7 @@
                                                 <td><?=$name;?></td>
                                                 <td><input type="text" name="skug1[]" class="form-control" value="<?=$skug;?>" readonly></td>
                                                 <td><input type="number" name="quantity1[]" class="form-control" value="<?=$data['quantity'];?>" readonly></td>
-                                                <th>->
-                                                    <input type="text" name="idg[]" value="<?=$idg;?>">
-                                                </th>
+                                                <th><input type="hidden" name="idg[]" value="<?=$idg;?>"></th>
                                                 <td><input type="text" name="skug[]" class="form-control" required></td>
                                                 <td><input type="number" name="quantity[]" class="form-control" value="<?=$data['quantity'];?>" required></td>
                                             </tr>
