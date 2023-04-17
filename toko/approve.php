@@ -93,7 +93,7 @@
                                             <td><?=$img;?></td>
                                             <td><?=$data['nama'];?></td>
                                             <td><?=$data['sku_toko'];?></td>
-                                            <td>Session login</td>
+                                            <td><?=$data['picker'];?></td>
                                             <?php
                                                 if($quantity==0){
                                                     echo "<td style='color: red;'>$quantity</td>";

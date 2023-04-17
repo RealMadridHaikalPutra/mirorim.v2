@@ -46,17 +46,17 @@
                                             <tr>
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" name="nama[]" class="form-control"></td>
-                                                <td>Session Login</td>
+                                                <td><input readonly type="text" name="requester" value="<?= $_SESSION['nama_user'];?>" class="form-control"></td>
+                                                <td>
+                                                    <input type="number" name="quantity[]" class="form-control">
+                                                    <input type="hidden" value="unprocessed" name="stat">
+                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
+                                                </td>
                                                 <td>
                                                 <select class="form-control" name="typereq[]">
                                                         <option value="Prioritas" class="form-control">Prioritas</option>
                                                         <option value="Standar" class="form-control">Standar</option>
                                                     </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" name="quantity[]" class="form-control">
-                                                    <input type="hidden" value="unprocessed" name="stat">
-                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
                                                 </td>
                                             </tr>
                                             <?php

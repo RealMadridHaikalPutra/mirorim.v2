@@ -42,6 +42,8 @@
                                     <th>SKU</th>
                                     <th>Status</th>
                                     <th>Quantity</th>
+                                    <th>Pilih SKU Gudang</th>
+                                    <th>Picker</th>
                                     <th>Checklist</th>
                                 </tr>
                             </thead>
@@ -81,6 +83,7 @@
                                             ?>
                                             </td>
                                         </select>
+                                        <td><input readonly type="text" name="picker" value="<?= $_SESSION['nama_user'];?>" class="form-control"></td>
                                         <td><input type="checkbox" name="cek[]" value="<?= $data['id_request']; ?>" class="form-check">
                                             <input type="hidden" value="On Process" name="stat">
                                         </td>
@@ -125,9 +128,9 @@
                                 <th><?= $i++; ?></th>
                                 <td><?= $data['nama']; ?></td>
                                 <td class="text-uppercase"><?= $data['sku_toko']; ?></td>
-                                <td>Session Login</td>
+                                <td><?= $data['requester']; ?></td>
                                 <td><?= $data['date']; ?></td>
-                                <td>Session Login</td>
+                                <td><?= $data['picker']; ?></td>
                                 <td><?= $data['quantity_req']; ?></td>
                                 <td><?= $data['type_req']; ?></td>
 

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$konek = mysqli_connect("localhost","root","","mirorim");
+$konek = mysqli_connect("localhost","root","","mirorim.v2");
 
 //cek login terdaftar apa tidak
 
@@ -50,7 +50,7 @@ if(isset($_POST['login'])){
 
         header('location:super_admin');
 
-    } elseif($role=='purchasing'){
+    } elseif($role=='purchase'){
 
         $_SESSION['iduser'] = $iduser;
 
@@ -58,7 +58,7 @@ if(isset($_POST['login'])){
 
         $_SESSION['role'] = 'purchase';
 
-        header('location:purchasing');
+        header('location:purchase');
 
     }elseif($role=='toko'){
 
@@ -101,9 +101,9 @@ if(isset($_POST['login'])){
 
     $_SESSION['iduser'] = $iduser;
 
-    $_SESSION['nama_user'] = 'Ogi';
+    $_SESSION['nama_user'] = $namauser;
 
-    $_SESSION['role'] = 'gudang';
+    $_SESSION['role'] = 'super_gudang';
 
     header('location:super_gudang');
    }

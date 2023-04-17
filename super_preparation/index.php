@@ -1,7 +1,19 @@
 <?php
 
 require 'php/function.php';
-
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'preparation') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Preparation');
+    window.location.assign('../login.php');
+    </script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +82,11 @@ require 'php/function.php';
                             </a>
                             <a class="nav-link" href="index.php?url=reqpre">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Request Item
+                                Receive Item
+                            </a>
+                            <a class="nav-link" href="index.php?url=workerprepare">
+                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                                Worker Prepare
                             </a>
                             </div>
                     </div>

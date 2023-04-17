@@ -6,14 +6,14 @@
     </ol>
     <div class="card mb-4">
         <div class="card-header">
-            <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-primary">Start Work</a>
+            <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-primary">Check List</a>
             <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalFinish" class="btn btn-outline-success">Finish</a>
         </div>
         <div class="modal fade" id="smallModalceklist" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Pilih Yang mau di prepare</h5>
+                        <h5 class="modal-title">Approve Refill</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form method="post" action="">
@@ -25,7 +25,6 @@
                                     <th>Name Item</th>
                                     <th>SKU</th>
                                     <th>Quantity</th>
-                                    <th>Worker</th>
                                     <th>Checklist</th>
                                 </tr>
                             </thead>
@@ -40,11 +39,9 @@
                                         <td><?= $data['nama']; ?></td>
                                         <td><?= $data['sku_toko']; ?></td>
                                         <td><?= $data['quantity_req']; ?></td>
-                                        <td><?= $_SESSION['nama_user'];?></td>
                                         <td><input type="checkbox" value="<?=$data['idpre'];?>" name="cek[]" class="form-input"></td>
                                             <input type="hidden" name="idp[]" value="<?=$data['idp'];?>">
                                             <input type="hidden" name="stat" value="On Process">
-                                            <input type="hidden" name="worker" value="<?=$_SESSION['nama_user'];?>">
                                         
                                     </tr>
                                 <?php

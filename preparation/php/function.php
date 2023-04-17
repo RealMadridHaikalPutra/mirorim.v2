@@ -63,18 +63,40 @@ if(isset($_POST['addkomponen'])){
     }
 }
 
+//Komponen Input
+if(isset($_POST['komponeninput'])){
+    $idpf = $_POST['idp'];
+    $nama = $_POST['nama'];
+    $quantity = $_POST['quantity'];
+
+    $jum = $_POST['jum'];
+    for($i = 0; $i < $jum; $i++){
+        $select = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]' AND jenis='mentah'");
+        $data = mysqli_fetch_array($select);
+            $idp = $data['id_product'];
+            if($select){
+                $insert = mysqli_query($conn, "INSERT INTO list_komponen(id_product_finish, id_komponen, quantity_komponen) VALUES('$idpf','$idp','$quantity[$i]')");
+                header('location:?url=komponen');
+            } else {
+
+            }
+    } {
+
+    }
+}
 
 //Acc Request Receiver
 if(isset($_POST['accrequest'])){
     $idp = $_POST['idp'];
     $cek = $_POST['cek'];
     $stat = $_POST['stat'];
+    $receiver = $_POST['reciver'];
     //receive = $_POST['receiver'];
     $date = date('Y-m-d H:i:s');
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_receiver='$date' WHERE id_prepare='$cek[$i]'");
+        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_receiver='$date', receiver='$receiver' WHERE id_prepare='$cek[$i]'");
         header('location:?url=reqpre');
     }{
 
@@ -86,12 +108,13 @@ if(isset($_POST['accrequestprocess'])){
     $idp = $_POST['idp'];
     $cek = $_POST['cek'];
     $stat = $_POST['stat'];
+    $worker = $_POST['worker'];
     //receive = $_POST['receiver'];
     $date = date('Y-m-d H:i:s');
 
     $jum = count($cek);
     for ($i = 0; $i < $jum; $i++){
-        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_start='$date' WHERE id_prepare='$cek[$i]'");
+        $update = mysqli_query($conn, "UPDATE request_prepare SET status_prepare='$stat', date_start='$date', worker='$worker' WHERE id_prepare='$cek[$i]'");
         header('location:?url=workerprepare');
     }{
 

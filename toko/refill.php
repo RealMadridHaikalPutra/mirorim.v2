@@ -47,13 +47,13 @@
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" name="sku[]" class="form-control"></td>
                                                 <td>
-                                                    <select id="selectReq" name="status[]" class="form-control">
-                                                        <option value="request">Request</option>
+                                                    <select id="selectReq" name="status" class="form-control">
+                                                        <option value="refill">Refill</option>
                                                     </select>
                                                 </td>
                                                 <td><input readonly type="text" name="requester" value="<?= $_SESSION['nama_user'];?>" class="form-control"></td>
                                                 <td>
-                                                    <input type="number" name="quantity[]" class="form-control">
+                                                    <input readonly type="number" name="quantity[]" class="form-control">
                                                     <input type="hidden" value="unprocessed" name="stat">
                                                     <input type="hidden" name="jum" value="<?=$jum;?>">
                                                 </td>
@@ -71,18 +71,3 @@
                             </form>
                     </div>
                 </div>
-                <script>
-                    const inputTypeSelect = document.getElementById('selectReq');
-                    const myInput = document.getElementById('myQuantity');
-
-                    inputTypeSelect.addEventListener('change', function() {
-                    const selectedOption = inputTypeSelect.value;
-                    if (selectedOption === 'refill') {
-                        myInput.setAttribute('readonly', true);
-                    } else {
-                        myInput.setAttribute('number', true);
-                        myInput.removeAttribute('readonly');
-                    }
-                    myInput.type = selectedOption;
-                    });
-                </script>

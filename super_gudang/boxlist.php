@@ -24,16 +24,21 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php
-                                                       
+                                                       $box = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE status_box='Not Approved'");
+                                                       $i = 1;
+                                                       while($data=mysqli_fetch_array($box)){
                                                     ?>
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td><input type="checkbox" class="form-check-label" value="" name="cekboxcount[]">
+                                                            <td><?=$i++;?></td>
+                                                            <td><?=$data['resi'];?></td>
+                                                            <td><?=$data['invoice'];?></td>
+                                                            <td><?=$data['box'];?></td>
+                                                            <td><input type="checkbox" class="form-check-label" value="<?=$data['id_box'];?>" name="cekboxcount[]">
                                                             </td>
-                                                    
+                                                        </tr>
+                                                    <?php
+                                                       }
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                                 <div class="text-right m-2">
@@ -43,6 +48,7 @@
                                             </form>
                                         </div>
                                         </div>
+                                <a type="button" class="btn btn-outline-success" href="index.php?url=nonsku">Pending</a>
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -58,14 +64,21 @@
                                             </tr>
                                         </thead>
                                         <tbody >
-                                           
+                                           <?php
+                                                $box = mysqli_query($conn, "SELECT * FROM boxorder_id");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($box)){
+                                           ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <th></th>
-                                                <th></th>
-                                                <td></td>
+                                                <td><?=$i++;?></td>
+                                                <td><?=$data['resi'];?></td>
+                                                <th><?=$data['invoice'];?></th>
+                                                <th><?=$data['box'];?></th>
+                                                <td><?=$data['status_box'];?></td>
                                             </tr>
+                                            <?php
+                                                }
+                                            ?>
                                             
                                         </tbody>
                                     </table>

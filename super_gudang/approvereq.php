@@ -22,8 +22,6 @@
                                         <?php
                                             $nama = $_POST['nama'];
                                             $quantity = $_POST['quantity'];
-                                            $requester = $_POST['requester'];
-                                            $typereq = $_POST['typereq'];
                                             $hitung = count($nama);
                                             $k = 1;
 
@@ -55,8 +53,6 @@
                                                 <input type="text" value="<?=$hitung;?>" name="jum[]">
                                                 <input type="text" value="<?=$quantity[$i];?>" name="quantity[]">
                                                 <input type="text" value="Unprocess" name="stat">
-                                                <input type="text" value="<?=$requester;?>" name="requester">
-                                                <input type="text" value="<?=$typereq[$i];?>" name="typereq">
                                                 </select></th>
                                                     <?php
                                                         $select = mysqli_query($conn, "SELECT * FROM product_id, list_komponen WHERE product_id.id_product=list_komponen.id_komponen AND id_product_finish='$idp'");
