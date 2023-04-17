@@ -3,45 +3,62 @@
 $conn = mysqli_connect("localhost","root","","mirorim.v2");
 
 // Add Item Multi
-if(isset($_POST['addkomponen'])){
+if(isset($_POST['newmultiitem'])){
     $nama = $_POST['nama'];
+    $variant = $_POST['variant'];
     $jumlah = $_POST['jum'];
     $jenis = $_POST['jenis'];
-    
+    $reject = "Reject";
+
     $jum = count($jumlah);
-    for($i = 0; $i < $jum; $i++){
 
     //gambar
     $allowed_extension = array('png','jpg','jpeg','svg','webp');
     $namaimage = $_FILES['file']['name']; //ambil gambar
-    $dot = explode('.',$namaimage[$i]);
+    $dot = explode('.',$namaimage);
     $ekstensi = strtolower(end($dot)); //ambil ekstensi
     $ukuran = $_FILES['file']['size']; //ambil size
     $file_tmp = $_FILES['file']['tmp_name']; //lokasi
 
     //nama acak
-    $image = md5(uniqid($namaimage[$i],true) . time()).'.'.$ekstensi; //compile
+    $image = md5(uniqid($namaimage,true) . time()).'.'.$ekstensi; //compile
+    
+    for($i = 0; $i < $jum; $i++){
 
         //proses upload
         if(in_array($ekstensi, $allowed_extension) === true){
             //validasi ukuran
-            if($ukuran[$i] < 5000000){
-                move_uploaded_file($file_tmp[$i], '../assets/img/'.$image);
+            if($ukuran < 5000000){
+                move_uploaded_file($file_tmp, '../assets/img/'.$image);
 
-                $addnew = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama[$i]','$jenis')");
+                $addnew = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama - $variant[$i]','$jenis')");
                 if($addnew){
-                    $select = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
+                    $select = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama - $variant[$i]'");
                     $data = mysqli_fetch_array($select);
                     $idp = $data['id_product'];
 
                     if($select){
                         $insert = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp')");
-                        header('location:?url=komponen');
-                    } else {
+                        if($insert){
+                            $addnew1 = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama - $variant[$i]','$reject')");
+                            if($addnew1){
+                                $select1 = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama - $variant[$i]' AND jenis='Reject'");
+                                $data1 = mysqli_fetch_array($select);
+                                $idp1 = $data1['id_product'];
 
-                    }
-                    
-                    
+                                if($select1){
+                                    $insert1 = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp')");
+                                    header('location:?url=komponen');
+                                    } else {
+
+                                    }
+                        
+                            } else {
+
+                            }
+                        } else {
+
+                        }
                 } else {
                     echo '
                     <script>
@@ -61,6 +78,7 @@ if(isset($_POST['addkomponen'])){
 
             }
     }
+}
 }
 
 //Komponen Input
