@@ -1,7 +1,19 @@
 <?php
 
 require 'php/function.php';
-
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'toko') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Toko');
+    window.location.assign('../login.php');
+    </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +51,7 @@ require 'php/function.php';
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#"> </a>
+                    <a class="dropdown-item" href="#"><?= $_SESSION['nama_user'];?></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="../logout.php">Logout</a>
                 </div>
@@ -56,9 +68,13 @@ require 'php/function.php';
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Product
                         </a>
+                        <a class="nav-link" href="index.php?url=refill">
+                            <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                            Req Gudang Refill
+                        </a>
                         <a class="nav-link" href="index.php?url=request">
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                            Request & Refill
+                           Req Gudang Request
                         </a>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
@@ -74,7 +90,7 @@ require 'php/function.php';
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
+                    <div class="medium">Logged in as: <?= $_SESSION['nama_user'];?></div>
 
                 </div>
             </nav>
@@ -88,7 +104,6 @@ require 'php/function.php';
                     echo " <div class='card'>
                     <div class='card-body text-center'>
                     <p class='card-text'><h4>Selamat Datang di Halaman Toko.</h4> </p>
-                    <p class='card-text'>Aplikasi Pembayaran SPP digunakan untuk mempermudah dalam mencatat pembayaran siswa / siswi disekolah.</p>
                     </div>";
                 } else {
                     include $file . '.php';

@@ -1,6 +1,19 @@
 <?php
 
 require 'php/function.php';
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'gudang') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Gudang');
+    window.location.assign('../login.php');
+    </script>";
+}
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +52,7 @@ require 'php/function.php';
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#"> </a>
+                    <a class="dropdown-item" href="#"><?= $_SESSION['nama_user'];?> </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="../logout.php">Logout</a>
                 </div>
@@ -75,6 +88,11 @@ require 'php/function.php';
                                 <a class="nav-link" href="index.php?url=exitprepare">Req Preparation</a>
                             </nav>
                         </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="medium">Logged in as: <?= $_SESSION['nama_user'];?></div>
+                    </div>
             </nav>
         </div>
         <div id="layoutSidenav_content">

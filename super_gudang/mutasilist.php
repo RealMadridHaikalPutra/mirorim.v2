@@ -1,54 +1,76 @@
-<div class="container-fluid">
-                        <h1 class="mt-4">Input Data Mutasi</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.php?url=gudang">Warehouse</a></li>
-                            <li class="breadcrumb-item active">All Warehouse</li>
-                        </ol>
-                        <form method="post">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <button type="submit" class="btn btn-outline-success" name="mutasigudang">Submit</button>
-                            </div>
 
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+<div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">Check Packing List</h5>
+                        <!--Submit-->
+                        <!-- Begin Page Content -->
+                <div class="container-fluid">
+                            <hr style="background-color: black; border: 2px solid black;">
+                            <form method="post" action="">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama">Name Item</label>
+                                <input class="form-control" name="nama" id="nama" type="text" require>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama">///////</label>
+                                    <br>
+                                    <button class="btn btn-outline-primary" type="submit" action="" name="ambildata">Ambil Data</button>
+                                </div>
+                                </div>
+                            </div>
+                            </form>
+                            <hr style="background-color: black; border: 2px solid black;">
+                            <form id="contact-form" action="" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
+                            <div class="table-responsive">
+                                    <table class="table table-hover table-bordered" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>SKU Store</th>
+                                                <th>Nama - Varian</th>
+                                                <th>SKU</th>
                                                 <th>Quantity</th>
-                                                <th>Sender</th>
-                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            /*    $jum = $_POST['qtyskugudang'];
-                                                $sender = $_POST['sender'];
-                                                $status = $_POST['stats'];
-                                                $s = 1;
-                                                $jumlah = $jum+$s;
+                                        <?php
+                                         if(isset($_POST['ambildata'])){
+                                            $nama = $_POST['nama'];
 
-                                                for($i=1; $i < $jumlah; $i++){
+                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product=toko_id.id_product AND nama LIKE '%$nama%'");
+                                            $s = 1;
+                                            while($data = mysqli_fetch_array($select)){
+                                                $name = $data['nama'];
                                             ?>
+
                                             <tr>
-                                                <th><?=$s++;?></th>
-                                                <td><input type="text" class="form-control text-uppercase" name="skutoko[]"></td>
-                                                <td><input type="number" class="form-control" name="qtymutasi[]"></td>
-                                                <td><input readonly type="text" class="form-control" name="sender[]" value="<?=$sender;?>"></td>
-                                                <td><input type="text" class="form-control" name="status[]" value="<?=$status;?>">
-                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
-                                                </td>
+                                                <td><?=$s++;?></td>
+                                                <td><?=$name;?></td>
+                                                <td><?=$data['sku'];?></td>
+                                                <td><input type="number" name="quantity[]" class="form-control">
+                                                <?php
+                                                    $box = mysqli_query($conn, "SELECT * FROM boxorder_id WHERE invoice='$inv'");
+                                                    $idbc = mysqli_fetch_array($box);
+                                                    $idb = $idbc['id_box'];
+                                                ?>
+                                                <input type="hidden" value="<?=$idb;?>" name="idb">
+                                                <input type="hidden" value="<?=$name;?>" name="nama[]">
                                             </tr>
                                             <?php
-                                                }*/
+                                                }}
 
                                             ?>
-                                        </tbody>
+                                            </tbody>
                                     </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-primary" name="inputorder">Submit</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+            
                         </div>
-                    </form>
+                    </div>
                     </div>

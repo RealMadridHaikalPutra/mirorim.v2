@@ -81,16 +81,20 @@
                             <th>No</th>
                             <th>Name Item</th>
                             <th>SKU Store</th>
+                            <th>Requester</th>
+                            <th>Recive</th>
                             <th>Worker</th>
                             <th>Quantity</th>
                             <th>Reject</th>
-                            <th>Time</th>
+                            <th>Time Receive</th>
+                            <th>Time On Process</th>
+                            <th>Time Done</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $select = mysqli_query($conn, "SELECT nama, sku_toko, worker, quantity_req, quantity_matang, quantity_reject, date_start, status_prepare FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish");
+                        $select = mysqli_query($conn, "SELECT nama, sku_toko, worker, quantity_req, quantity_matang, quantity_reject, date_start, date_finish, date_receiver, status_prepare, requester, receiver FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish");
                         $i = 1;
                         while ($data = mysqli_fetch_array($select)) {
                         ?>
@@ -98,10 +102,14 @@
                                 <td><?= $i++; ?></td>
                                 <td><?= $data['nama']; ?></td>
                                 <td><?= $data['sku_toko']; ?></td>
+                                <td><?= $data['requester']; ?></td>
+                                <td><?= $data['receiver']; ?></td>
                                 <td><?= $data['worker']; ?></td>
                                 <td><?= $data['quantity_matang']; ?></td>
                                 <td><?= $data['quantity_reject']; ?></td>
+                                <td><?= $data['date_receiver']; ?></td>
                                 <td><?= $data['date_start']; ?></td>
+                                <td><?= $data['date_finish']; ?></td>
                                 <td><?= $data['status_prepare']; ?></td>
                             </tr>
                         <?php

@@ -1,7 +1,19 @@
 <?php
 
 require 'php/function.php';
-
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'preparation') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Preparation');
+    window.location.assign('../login.php');
+    </script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +58,7 @@ require 'php/function.php';
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <a class="dropdown-item" href="#"><?= $_SESSION['nama_user'];?></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>

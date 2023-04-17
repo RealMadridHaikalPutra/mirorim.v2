@@ -9,13 +9,14 @@ if(isset($_POST['tokoinput'])){
     $status = $_POST['status'];
     $stat = $_POST['stat'];
     $quantity = $_POST['quantity'];
+    $requester = $_POST['requester'];
 
     for($i = 0; $i < $jum; $i++){
         $select = mysqli_query($conn, "SELECT * FROM toko_id WHERE sku_toko='$sku[$i]'");
         $data = mysqli_fetch_array($select);
         $idt = $data['id_toko'];
         if($select){
-            $insert = mysqli_query($conn, "INSERT INTO request_id(id_toko, quantity_req, type_req, status_req) VALUES('$idt','$quantity[$i]','$status[$i]','$stat')");
+            $insert = mysqli_query($conn, "INSERT INTO request_id(id_toko, quantity_req, type_req, status_req, requester) VALUES('$idt','$quantity[$i]','$status[$i]','$stat','$requester')");
             header('location:?url=approve');
         } else {
 
