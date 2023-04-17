@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2023 at 04:32 PM
+-- Generation Time: Apr 17, 2023 at 11:18 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -91,9 +91,12 @@ INSERT INTO `gudang_id` (`id_gudang`, `sku_gudang`, `id_product`, `quantity`, `l
 (2, 'k4b1', 1, 100, 4),
 (3, 'k5a1', 2, 300, 5),
 (4, 'K6A1', 3, 600, 6),
-(5, 'M1B1', 5, 200, 3),
-(6, 'M1B2', 10, 2000, 3),
-(7, 'M1B3', 11, 1000, 3);
+(5, '', 5, 200, 3),
+(6, 'M1B2', 10, -300, 3),
+(7, 'M1B3', 11, -600, 3),
+(8, 'a1a1', 12, 100, 1),
+(9, 'a2a2', 13, 200, 2),
+(10, 'a3a3', 14, 300, 3);
 
 -- --------------------------------------------------------
 
@@ -143,6 +146,31 @@ INSERT INTO `list_komponen` (`id_list_komponen`, `id_product_finish`, `id_kompon
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mutasi_id`
+--
+
+CREATE TABLE `mutasi_id` (
+  `id_mutasi` int(11) NOT NULL,
+  `id_gudang` int(11) NOT NULL,
+  `skug_lama` varchar(200) NOT NULL,
+  `skug_baru` varchar(200) NOT NULL,
+  `quantity_out` int(11) NOT NULL,
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status_mutasi` varchar(200) NOT NULL DEFAULT 'Not Approved'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mutasi_id`
+--
+
+INSERT INTO `mutasi_id` (`id_mutasi`, `id_gudang`, `skug_lama`, `skug_baru`, `quantity_out`, `datetime`, `status_mutasi`) VALUES
+(12, 5, 'M1B1', 'M1B0', 100, '2023-04-17 07:55:00', 'Approved'),
+(13, 5, 'M1B1', 'M1B1', 150, '2023-04-17 08:00:50', 'Not Approved'),
+(15, 5, 'M1B1', 'M1B5', 200, '2023-04-17 08:05:21', 'Not Approved');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_id`
 --
 
@@ -162,8 +190,11 @@ INSERT INTO `product_id` (`id_product`, `image`, `nama`, `jenis`) VALUES
 (2, '7efa07b62a080fc5be8c775cefb3d549.jpg', 'Adaptor - 5S . 10V', 'Mentah'),
 (3, '7efa07b62a080fc5be8c775cefb3d549.jpg', 'Adaptor - 6S . 12V', 'Mentah'),
 (5, 'b3e6ef28b9a1f9a628cbc8e66cfd8bbb.png', 'Fan Keong', 'Mateng'),
-(10, '51f927a5c1a90aeb066e9d628703a702.png', 'Lohh', 'Komp'),
-(11, 'e5efb94b2fe3a573372cb1a9ac2eadce.webp', 'Kok', 'Komp');
+(10, '51f927a5c1a90aeb066e9d628703a702.png', 'Lohh', 'Mentah'),
+(11, 'e5efb94b2fe3a573372cb1a9ac2eadce.webp', 'Kok', 'Mentah'),
+(12, '3f6f1327e3f0fbc128f03c9525877956.jpg', '1', 'Mentah'),
+(13, '9758261e6c2d791231c95ea9ea4a2857.jpg', '2', 'Mateng'),
+(14, '1938611e2a1ab1ca63294668f3e5aaf1.png', '3', 'Mentah');
 
 -- --------------------------------------------------------
 
@@ -216,6 +247,14 @@ CREATE TABLE `request_prepare` (
   `gudang_out` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `request_prepare`
+--
+
+INSERT INTO `request_prepare` (`id_prepare`, `id_product_finish`, `quantity_req`, `quantity_matang`, `quantity_reject`, `type_req`, `status_prepare`, `receiver`, `worker`, `requester`, `date_receiver`, `date_start`, `date_finish`, `gudang_in`, `gudang_out`) VALUES
+(45, 5, 30, 20, 10, '', 'Diterima', '', '', '', '2023-04-09 23:13:29', '2023-04-09 23:14:58', '2023-04-09 23:30:01', '5', '5'),
+(46, 5, 10, 8, 2, '', 'Diterima', '', '', '', '2023-04-09 23:13:53', '2023-04-09 23:28:35', '2023-04-09 23:30:12', '5', '5');
+
 -- --------------------------------------------------------
 
 --
@@ -239,7 +278,10 @@ INSERT INTO `toko_id` (`id_toko`, `sku_toko`, `id_product`, `quantity_toko`) VAL
 (3, '6K1', 3, 0),
 (4, '2K1', 5, 0),
 (9, '-', 10, 0),
-(10, '-', 11, 0);
+(10, '-', 11, 0),
+(11, '-', 12, 0),
+(12, '-', 13, 0),
+(13, '-', 14, 0);
 
 -- --------------------------------------------------------
 
@@ -301,6 +343,13 @@ ALTER TABLE `list_komponen`
   ADD KEY `id_komponen` (`id_komponen`);
 
 --
+-- Indexes for table `mutasi_id`
+--
+ALTER TABLE `mutasi_id`
+  ADD PRIMARY KEY (`id_mutasi`),
+  ADD KEY `id_gudang` (`id_gudang`);
+
+--
 -- Indexes for table `product_id`
 --
 ALTER TABLE `product_id`
@@ -356,7 +405,7 @@ ALTER TABLE `delivery_id`
 -- AUTO_INCREMENT for table `gudang_id`
 --
 ALTER TABLE `gudang_id`
-  MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `item_id`
@@ -371,10 +420,16 @@ ALTER TABLE `list_komponen`
   MODIFY `id_list_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `mutasi_id`
+--
+ALTER TABLE `mutasi_id`
+  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `product_id`
 --
 ALTER TABLE `product_id`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `request_id`
@@ -386,13 +441,13 @@ ALTER TABLE `request_id`
 -- AUTO_INCREMENT for table `request_prepare`
 --
 ALTER TABLE `request_prepare`
-  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `toko_id`
 --
 ALTER TABLE `toko_id`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `total_req`
@@ -422,6 +477,12 @@ ALTER TABLE `item_id`
 --
 ALTER TABLE `list_komponen`
   ADD CONSTRAINT `list_komponen_ibfk_2` FOREIGN KEY (`id_komponen`) REFERENCES `product_id` (`id_product`);
+
+--
+-- Constraints for table `mutasi_id`
+--
+ALTER TABLE `mutasi_id`
+  ADD CONSTRAINT `mutasi_id_ibfk_1` FOREIGN KEY (`id_gudang`) REFERENCES `gudang_id` (`id_gudang`);
 
 --
 -- Constraints for table `request_id`

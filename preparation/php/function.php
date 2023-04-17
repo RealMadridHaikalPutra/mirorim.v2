@@ -7,8 +7,6 @@ if(isset($_POST['addkomponen'])){
     $nama = $_POST['nama'];
     $jumlah = $_POST['jum'];
     $jenis = $_POST['jenis'];
-    $reject = "reject";
-
     
     $jum = count($jumlah);
     for($i = 0; $i < $jum; $i++){

@@ -45,7 +45,7 @@
                                 ?>
                                 <tr>
                                     <th><?=$s++;?></th>
-                                    <td><input type="file" name="file[]" class="form-control" require=""></td>
+                                    <td><input type="file" name="file[]" multiple class="form-control" require=""></td>
                                     <td><input type="text" class="form-control" name="nama[]" require=""></td>
                                         <input type="hidden" name="jum[]" value="<?=$jum;?>">
                                     </td>
