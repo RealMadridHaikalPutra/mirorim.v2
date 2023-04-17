@@ -9,6 +9,7 @@ if(isset($_POST['addkomponen'])){
     $jenis = $_POST['jenis'];
     $reject = "reject";
 
+    
     $jum = count($jumlah);
     for($i = 0; $i < $jum; $i++){
 
@@ -22,7 +23,6 @@ if(isset($_POST['addkomponen'])){
 
     //nama acak
     $image = md5(uniqid($namaimage[$i],true) . time()).'.'.$ekstensi; //compile
-    
 
         //proses upload
         if(in_array($ekstensi, $allowed_extension) === true){
@@ -30,7 +30,7 @@ if(isset($_POST['addkomponen'])){
             if($ukuran[$i] < 5000000){
                 move_uploaded_file($file_tmp[$i], '../assets/img/'.$image);
 
-                $addnew = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama[$i]','$jenis[$i]')");
+                $addnew = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama[$i]','$jenis')");
                 if($addnew){
                     $select = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
                     $data = mysqli_fetch_array($select);
@@ -38,23 +38,7 @@ if(isset($_POST['addkomponen'])){
 
                     if($select){
                         $insert = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp')");
-
-                        if($insert){
-                            $addnew1 = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama[$i]','$reject')");
-                                if($addnew1){
-                                    $select1 = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
-                                    $data1 = mysqli_fetch_array($select);
-                                    $idp1 = $data1['id_product'];
-
-                                    if($select1){
-                                        $insert1 = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp1')");
-                                        header('location:?url=komponen');
-                                    } else {
-
-                                    }
-                        } else {
-
-                        }}
+                        header('location:?url=komponen');
                     } else {
 
                     }
