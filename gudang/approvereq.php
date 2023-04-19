@@ -37,7 +37,7 @@
                                             <tr>
                                                 <th><?=$jum++;?></th>
                                                 <th><?=$data['nama'];?></th>
-                                                <th>SKU</th>
+                                                <th><?=$data['sku_toko'];?></th>
                                                 <th><?=$quantity[$i];?></th>
                                                 <th><select class="form-control" name="idg[]"><!-- Ambil Gudang Induk -->
                                                 <?php
@@ -51,15 +51,15 @@
                                                     }
                                                 ?>
                                                 <!-- Form Input -->
-                                                <input type="text" value="<?=$idp;?>" name="idp[]">
-                                                <input type="text" value="<?=$hitung;?>" name="jum[]">
-                                                <input type="text" value="<?=$quantity[$i];?>" name="quantity[]">
-                                                <input type="text" value="Unprocess" name="stat">
-                                                <input type="text" value="<?=$requester;?>" name="requester">
-                                                <input type="text" value="<?=$typereq[$i];?>" name="typereq">
+                                                <input type="hidden" value="<?=$idp;?>" name="idp[]">
+                                                <input type="hidden" value="<?=$hitung;?>" name="jum[]">
+                                                <input type="hidden" value="<?=$quantity[$i];?>" name="quantity[]">
+                                                <input type="hidden" value="Unprocess" name="stat">
+                                                <input type="hidden" value="<?=$requester;?>" name="requester">
+                                                <input type="hidden" value="<?=$typereq[$i];?>" name="typereq">
                                                 </select></th>
                                                     <?php
-                                                        $select = mysqli_query($conn, "SELECT * FROM product_id, list_komponen WHERE product_id.id_product=list_komponen.id_komponen AND id_product_finish='$idp'");
+                                                        $select = mysqli_query($conn, "SELECT * FROM product_id, list_komponen, toko_id WHERE product_id.id_product=list_komponen.id_komponen AND toko_id.id_product=product_id.id_product AND id_product_finish='$idp'");
                                                         while($item=mysqli_fetch_array($select)){
                                                             $idgk = $item['id_komponen'];
                                                             $qtykomp = $item['quantity_komponen'];
@@ -69,9 +69,9 @@
                                                     <tr>
                                                         <td>#</td>
                                                         <td><?=$item['nama'];?></td>
-                                                        <td>SKU</td>
+                                                        <td><?=$item['sku_toko'];?></td>
                                                         <td><?=$kali;?></td>
-                                                        <input type="text" value="<?=$kali;?>" name="quantity2[]">
+                                                        <input type="hidden" value="<?=$kali;?>" name="quantity2[]">
                                                         <td><select class="form-control" name="idk[]"><!-- Ambil Gudang komponen -->
                                                             <?php
                                                                 $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idgk'");

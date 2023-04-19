@@ -222,7 +222,9 @@ if (isset($_POST['komponenacc'])) {
     $cek = $_POST['cek'];
     $stat = $_POST['stat'];
     $idg = $_POST['idg'];
+    $idgr = $_POST['idgr'];
     $quantity = $_POST['quantity'];
+    $quantityr = $_POST['quantityr'];
     //receive = $_POST['receiver'];
     $date = date('Y-m-d H:i:s');
 
@@ -237,6 +239,20 @@ if (isset($_POST['komponenacc'])) {
             $update = mysqli_query($conn, "UPDATE request_prepare SET gudang_in='$idg[$i]', status_prepare='$stat' WHERE id_prepare='$cek[$i]'");
             if ($update) {
                 $update1 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$tambah' WHERE id_gudang='$idg[$i]'");
+                if($update1){
+                    $select4 = mysqli_query($conn, "SELECT quantity FROM gudang_id, product_id WHERE product_id.id_product=gudang_id.id_product AND id_gudang='$idgr[$i]'");
+                        $data4 = mysqli_fetch_array($select4);
+                        $quantity4 = $data4['quantity'];
+
+                        $tambahr = $quantity4 + $quantityr[$i];
+                        if ($select) {
+                                $update1 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$tambahr' WHERE id_gudang='$idgr[$i]'");
+                                header('location:?url=exitprepare');
+                        } else {
+                        }
+                } else {
+
+                }
                 header('location:?url=exitprepare');
             } else {
             }

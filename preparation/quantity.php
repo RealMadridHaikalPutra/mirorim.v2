@@ -41,11 +41,12 @@ $data = mysqli_fetch_array($select);
                                     $jum = count($cek);
                                     for($i = 0; $i < $jum; $i++){
                                         $select = mysqli_query($conn, "SELECT * FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND product_id.id_product='$cek[$i]'");
+                                        $s = 1;
                                         $opsi = mysqli_fetch_array($select);
                                 
                                 ?>
                                     <tr>
-                                        <th><?= $jum; ?></th>
+                                        <th><?= $s; ?></th>
                                         <td><?= $opsi['nama']; ?></td>
                                         <td><?=$opsi['sku_toko'];?></td>
 

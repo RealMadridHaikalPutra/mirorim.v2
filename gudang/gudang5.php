@@ -25,7 +25,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                           $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id, gudang_id WHERE product_id.id_product=toko_id.id_product AND product_id.id_product=gudang_id.id_product AND jenis='Mateng'");
+                                           $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id, gudang_id WHERE product_id.id_product=toko_id.id_product AND product_id.id_product=gudang_id.id_product AND jenis<>'Mentah'");
                                            $i = 1;
                                            while($data=mysqli_fetch_array($select)){
                                             //cek data gambar ada apa kagak

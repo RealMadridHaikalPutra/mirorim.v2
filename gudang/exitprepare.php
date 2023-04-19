@@ -27,15 +27,18 @@
                                     <th>SKU</th>
                                     <th>Quantity</th>
                                     <th>Gudang In</th>
+                                    <th>Quantity Reject</th>
+                                    <th>Gudang Reject</th>
                                     <th>Checklist</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $select = mysqli_query($conn, "SELECT id_product_finish AS idp, id_prepare AS idpre, nama, sku_toko, quantity_req, quantity_matang FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish AND status_prepare='Done'");
+                                $select = mysqli_query($conn, "SELECT id_product_finish AS idp, id_prepare AS idpre, quantity_reject, nama, sku_toko, quantity_req, quantity_matang FROM toko_id, product_id, request_prepare WHERE toko_id.id_product=product_id.id_product AND product_id.id_product=request_prepare.id_product_finish AND status_prepare='Done'");
                                 $i = 1;
                                 while ($data = mysqli_fetch_array($select)) {
                                     $idp = $data['idp'];
+                                    $nama = $data['nama'];
                                 ?>
                                     <tr>
                                         <td><?= $i++; ?></td>
@@ -55,11 +58,25 @@
                                                 ?>
                                             </select>
                                         </td>
+                                        <td><?=$data['quantity_reject'];?></td>
+                                        <td>
+                                        <select class="form-control" name="idgr[]"><!-- Ambil Gudang komponen -->
+                                                <?php
+                                                $selectopsi2 = mysqli_query($conn, "SELECT * FROM gudang_id, product_id WHERE gudang_id.id_product=product_id.id_product AND nama='$nama' AND jenis='reject'");
+                                                while ($opsi2 = mysqli_fetch_array($selectopsi2)) {
+
+                                                ?>
+                                                    <option value="<?= $opsi2['id_gudang']; ?>"><?= $opsi2['sku_gudang']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select></td>
                                         <td><input type="checkbox" value="<?= $data['idpre']; ?>" name="cek[]" class="form-input"></td>
                                         <input type="hidden" name="idp[]" value="<?= $data['idp']; ?>">
                                         <input type="hidden" name="stat" value="Diterima">
                                         <input type="hidden" name="quantity[]" value="<?=$data['quantity_matang'];?>">
-
+                                        <input type="hidden" name="quantityr[]" value="<?=$data['quantity_reject'];?>">
+                                        </td>
                                     </tr>
                                 <?php
                                 }

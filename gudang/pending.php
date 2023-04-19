@@ -36,7 +36,7 @@
                                                 $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
                                             }   
                                         ?>
-                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal">
+                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idp;?>">
                                                 <th><?=$i++;?></th>
                                                 <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
@@ -44,7 +44,7 @@
                                                 <td><?=$data['jenis'];?></td>
                                             </tr>
                                         
-                                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                            <div class="modal fade" id="largeModal<?=$idp;?>" tabindex="-1">
                                             <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -56,7 +56,7 @@
                                             <form method="post" class="row g-3" enctype="multipart/form-data">   
                                             <div class="modal-body">
                                                     <br>
-                                                    <input type="hidden" value="<?=$data['id_product'];?>" name="idp">
+                                                    <input type="hidden" value="<?=$idp;?>" name="idp">
                                                     <div class="col-sm-12">
                                                         <label>SKU Gudang</label>
                                                         <div class="form-floating">
