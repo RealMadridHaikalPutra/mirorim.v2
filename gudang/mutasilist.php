@@ -57,7 +57,7 @@
                                                 <td><input type="text" name="skug1[]" class="form-control" value="<?=$skug;?>" readonly></td>
                                                 <td><input type="number" name="quantity1[]" class="form-control" value="<?=$data['quantity'];?>"  readonly></td>
                                                 <th><input type="text" name="idg[]" value="<?=$idg;?>"></th>
-                                                <td><input type="text" name="skug[]" class="form-control" required></td>
+                                                <td><input type="text" name="skug[]"  class="form-control" required></td>
                                                 <td><input type="number" name="quantity[]" class="form-control" value="<?=$data['quantity'];?>" max="<?=$data['quantity'];?>" required></td>
                                             </tr>
                                             <?php
