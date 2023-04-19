@@ -22,7 +22,7 @@ $data = mysqli_fetch_array($select);
                     </div>
                 </div>
                 <hr>
-                <form method="post" action="?url=quantity">
+                <form method="post" action="?url=quantity&idp=<?=$idp;?>">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -37,18 +37,16 @@ $data = mysqli_fetch_array($select);
                                 <?php
                                 $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product=toko_id.id_product AND jenis='Mentah'");
                                 $s = 1;
-                                while ($data = mysqli_fetch_array($select)) {
+                                while ($opsi = mysqli_fetch_array($select)) {
                                 ?>
                                     <tr>
                                         <th><?= $s++; ?></th>
-                                        <td><?= $data['nama']; ?></td>
-                                        <td><?=$data['sku_toko'];?></td>
+                                        <td><?= $opsi['nama']; ?></td>
+                                        <td><?=$opsi['sku_toko'];?></td>
 
                                         </td>
                                         <td>
-                                            <input type="checkbox" class="form-label" name="cek[]" require="">
-                                            <input type="hidden" name="jum[]" value="<?= $jum; ?>">
-                                            <input type="hidden" name="idp" value="<?= $idp; ?>">
+                                            <input type="checkbox" class="form-label" value="<?=$opsi['id_product'];?>" name="cek[]" require="">
                                         </td>
                                     </tr>
                                 <?php
@@ -58,7 +56,7 @@ $data = mysqli_fetch_array($select);
                             </tbody>
                         </table>
                         <div class="text-right m-3">
-                            <button type="submit" class="btn btn-primary" name="komponenquantity">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
