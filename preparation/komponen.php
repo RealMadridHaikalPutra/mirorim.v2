@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         <?php
-                        $ambildata = mysqli_query($conn, "SELECT * FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND jenis<>'Mentah'");
+                        $ambildata = mysqli_query($conn, "SELECT * FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND jenis='Mateng'");
                         $i = 1;
                         while ($data = mysqli_fetch_array($ambildata)) {
                             $idpf = $data['id_product'];
