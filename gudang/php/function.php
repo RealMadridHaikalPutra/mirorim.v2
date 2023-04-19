@@ -137,40 +137,37 @@ if (isset($_POST['cektoko'])) {
 
     $jum = count($idt);
     for ($i = 0; $i < $jum; $i++) {
-
-
-        $select = mysqli_query($conn, "SELECT * FROM request_id WHERE id_request='$idt[$i]'");
+        $select = mysqli_query($conn, "SELECT type_req, quantity_req FROM request_id WHERE id_request='$idt[$i]'");
         $data = mysqli_fetch_array($select);
-        $qty = $data['quantity_req'];
+        $tipe = $data['type_req'];
+        $quantityreq = $data['quantity_req'];
 
-        if ($qty == 0) {
-            $selectlagi = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
-            $qty1 = mysqli_fetch_array($selectlagi);
-            $quantity1 = $qty1['quantity'];
-
-            if ($qty < $quantity1) {
+        if ($tipe == 'refill') {
+            $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
+            $datagudang = mysqli_fetch_array($selectgudang);
+            $quantitygudang = $datagudang['quantity'];
+            if ($quantity[$i] > $quantitygudang) {
                 echo '
                 <script>
-                    alert("Quantity Melebihi Kapasitas Gudang Lakukan Mutasi");
+                    alert("Qty Melebihi Stok Yang ada");
                     window.location.href="?url=exititem";
                 </script>';
             } else {
-                $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', status_req='$stat', id_gudang='$idg[$i]', picker='$picker' WHERE id_request='$idt[$i]'");
+                $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', id_gudang='$idg[$i]', status_req='$stat' WHERE id_request='$idt[$i]'");
                 header('location:?url=exititem');
             }
         } else {
-            $selectlagi = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
-            $qty1 = mysqli_fetch_array($selectlagi);
-            $quantity1 = $qty1['quantity'];
-
-            if ($quantity < $quantity1) {
+            $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
+            $datagudang = mysqli_fetch_array($selectgudang);
+            $quantitygudang = $datagudang['quantity'];
+            if ($quantityreq > $quantitygudang) {
                 echo '
                 <script>
-                    alert("Quantity Melebihi Kapasitas Gudang Lakukan Mutasi");
+                    alert("Qty Melebihi Stok Yang ada req");
                     window.location.href="?url=exititem";
                 </script>';
             } else {
-                $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat', id_gudang='$idg[$i]', picker='$picker' WHERE id_request='$idt[$i]'");
+                $update = mysqli_query($conn, "UPDATE request_id SET id_gudang='$idg[$i]', status_req='$stat' WHERE id_request='$idt[$i]'");
                 header('location:?url=exititem');
             }
         }
@@ -266,7 +263,6 @@ if (isset($_POST['mutasi'])) {
 
         if ($quantity == $quantity1) {
             if ($skug == $skug1) {
-
             } else {
                 $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
                 header('location:?url=mutasi');
@@ -309,8 +305,8 @@ if (isset($_POST['mutasiacc'])) {
         $skugb = $data['skug_baru'];
         $quantity = $data['quantity_out'];
 
-        if ($skugl==$skugb) {
-             $update1 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
+        if ($skugl == $skugb) {
+            $update1 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
             header('location:?url=approvemutasi');
         } else {
             $selectgudang = mysqli_query($conn, "SELECT sku_gudang, quantity FROM gudang_id WHERE sku_gudang='$skugb'");
@@ -322,7 +318,12 @@ if (isset($_POST['mutasiacc'])) {
                 $update = mysqli_query($conn, "UPDATE gudang_id SET quantity='$tambah' WHERE sku_gudang='$skugb'");
                 if ($update) {
                     $update1 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
-                    header('location:?url=approvemutasi');
+                    if ($update1) {
+                        $kurang = $quantity1 - $quantity;
+                        $update5 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE sku_gudang='$skugl'");
+                        header('location:?url=approvemutasi');
+                    } else {
+                    }
                 } else {
                 }
             } else {

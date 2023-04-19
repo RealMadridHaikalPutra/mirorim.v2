@@ -72,10 +72,31 @@ if(isset($_POST['approvereadmin'])){
     $stat = $_POST['stat'];
     $idt = $_POST['idt'];
     $idk = $_POST['idk'];
+    $idg = $_POST['idg'];
 
     $jum = count($idt);
     for($i = 0; $i < $jum; $i++){
         $update = mysqlI_query($conn, "UPDATE request_id SET quantity_req='$quantityr[$i]', quantity_count='$quantityc[$i]' WHERE id_request='$idt[$i]'");
+        if($quantityc[$i]==$quantityr[$i]){
+            $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat[$i]' WHERE id_request='$idt[$i]'");
+            if($update){
+                $selectopsi = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
+                $opsi = mysqli_fetch_array($selectopsi);
+                $qty = $opsi['quantity'];
+
+                $kurang = $qty-$quantityc[$i];
+                if($selectopsi){
+                    $out = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idg[$i]'");
+                    header('location:?url=approve');
+                } else {
+
+                }
+            } else {
+
+            }
+        } else {
+            
+        }
         header('location:?url=approveadmin');
     } {
 
