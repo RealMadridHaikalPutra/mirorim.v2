@@ -69,20 +69,17 @@
                                         ?>
                                         
                                         <td valign="top">
-
-                                            <select class="form-control" name="idg[]">
                                                 <?php
                                             $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idp'");
                                             $i = 1;
                                             while($opsi = mysqli_fetch_array($selectopsi)){
                                                 
                                                 ?>
-                                            <option value="<?=$opsi['id_gudang'];?>"><?=$opsi['sku_gudang'];?></option>
+                                            <input type="checkbox" name="idg[]" value="<?=$opsi['id_gudang'];?>"> <?=$opsi['sku_gudang'];?><br>
                                             <?php
                                             }
                                             ?>
                                             </td>
-                                        </select>
                                         <td><input readonly type="text" name="picker" value="<?= $_SESSION['nama_user'];?>" class="form-control"></td>
                                         <td><input type="checkbox" name="cek[]" value="<?= $data['id_request']; ?>" class="form-check">
                                             <input type="hidden" value="On Process" name="stat">

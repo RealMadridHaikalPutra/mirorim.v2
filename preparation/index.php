@@ -1,6 +1,19 @@
 <?php
 
 require 'php/function.php';
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'preparation') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Toko');
+    window.location.assign('../login.php');
+    </script>";
+}
 ?>
 
 <!DOCTYPE html>

@@ -42,7 +42,7 @@
                                                  }
                                             ?>
                                             <tr>
-                                                <th><?=$i;?></th>
+                                                <th><?=$i++;?></th>
                                                 <td>Gambar</td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td class="text-uppercase"><?=$data['skug_lama'];?></td>

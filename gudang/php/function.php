@@ -231,29 +231,30 @@ if(isset($_POST['mutasi'])){
         $lok = $data['lokasi_gudang'];
 
         if($quantity==$quantity1){
-            if($skug==$skug1){
-                
-            } else {
-                $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
-                header('location:?url=mutasi');
-            }
+                if($skug==$skug1){
+                    
+                } else {
+                    $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                    header('location:?url=mutasi');
+                }
         } else {
-            $selectnum = mysqli_query($conn, "SELECT sku_gudang FROM gudang_id");
+            $selectnum = mysqli_query($conn, "SELECT sku_gudang FROM gudang_id WHERE sku_gudang='$skug[$i]'");
             $hitung = mysqli_num_rows($selectnum);
             if($hitung>0){
-                $tambah = $quantity1[$i]+$quantity[$i];
-                $update1 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$tambah' WHERE sku_gudang='$skug[$i]'");
-                header('location:?url=mutasi');
+                $insert2 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                    header('location:?url=mutasi');
             } else {
-           $insert = mysqli_query($conn, "INSERT INTO gudang_id(id_product, sku_gudang, quantity) VALUES('$idp','$skug[$i]','$quantity[$i]')");
-           if($insert){
-            $kurang = $quantity1[$i]-$quantity[$i];
-            $update = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idg[$i]'");
-            header('location:?url=mutasi');
-           }else {
-
-           }
-        }
+                if($skug==$skug1){
+                    echo '
+                    <script>
+                        alert("Data Tidak Bisa Di Proses");
+                        window.location.href="?url=mutasi";
+                    </script>';
+                } else {
+                    $insert3 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                    header('location:?url=index');
+                }
+            }
         }
     }{
 

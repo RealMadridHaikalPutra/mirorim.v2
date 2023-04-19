@@ -2,7 +2,7 @@
 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">Check Packing List</h5>
+                        <h5 class="card-title">Cari Data SKU Gudang</h5>
                         <!--Submit-->
                         <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -10,8 +10,8 @@
                             <form method="post" action="">
                             <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nama">Name Item</label>
-                                <input class="form-control" name="nama" id="nama" type="text" require>
+                                <label for="nama">SKU Gudang</label>
+                                <input class="form-control" name="skug" id="skug" type="text" require>
                             </div>
                             </div>
                             <div class="col-md-6">
@@ -41,9 +41,9 @@
                                         <tbody>
                                         <?php
                                          if(isset($_POST['ambildata'])){
-                                            $nama = $_POST['nama'];
+                                            $nama = $_POST['skug'];
 
-                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, gudang_id WHERE gudang_id.id_product=product_id.id_product AND nama LIKE '%$nama%'");
+                                            $select  = mysqli_query($conn, "SELECT * FROM product_id, gudang_id WHERE gudang_id.id_product=product_id.id_product AND sku_gudang LIKE '%$nama%'");
                                             $s = 1;
                                             while($data = mysqli_fetch_array($select)){
                                                 $name = $data['nama'];
@@ -56,7 +56,7 @@
                                                 <td><?=$name;?></td>
                                                 <td><input type="text" name="skug1[]" class="form-control" value="<?=$skug;?>" readonly></td>
                                                 <td><input type="number" name="quantity1[]" class="form-control" value="<?=$data['quantity'];?>" readonly></td>
-                                                <th><input type="hidden" name="idg[]" value="<?=$idg;?>"></th>
+                                                <th><input type="text" name="idg[]" value="<?=$idg;?>"></th>
                                                 <td><input type="text" name="skug[]" class="form-control" required></td>
                                                 <td><input type="number" name="quantity[]" class="form-control" value="<?=$data['quantity'];?>" required></td>
                                             </tr>

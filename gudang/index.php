@@ -1,7 +1,19 @@
 <?php
 
 require 'php/function.php';
-
+session_start();
+if (empty($_SESSION['iduser'])) {
+    echo "<script>
+    alert('Maaf Anda Belum Login');
+    window.location.assign('../login.php');
+    </script>";
+}
+if ($_SESSION['role'] != 'gudang') {
+    echo "<script>
+    alert('Maaf Anda Bukan Sesi Gudang');
+    window.location.assign('../login.php');
+    </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
