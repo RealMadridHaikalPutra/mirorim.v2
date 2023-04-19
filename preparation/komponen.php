@@ -18,7 +18,7 @@
                             <th>Image</th>
                             <th>Name Item</th>
                             <th>SKU Toko</th>
-                            <th></th>
+                            <th>Jenis</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +43,7 @@
                                 <td><?=$img;?></td>
                                 <td><?= $data['nama']; ?></td>
                                 <td><?= $data['sku_toko']; ?></td>
+                                <td><?=$data['jenis'];?></td>
                                 <td>
                                     <div class="modal fade" id="largeModal<?= $data['id_product']; ?>" tabindex="-1">
                                         <div class="modal-dialog modal-lg">

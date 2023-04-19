@@ -47,7 +47,7 @@
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" name="sku[]" class="form-control"></td>
                                                 <td>
-                                                    <select id="selectReq" name="status" class="form-control">
+                                                    <select id="selectReq" name="status[]" class="form-control">
                                                         <option value="refill">Refill</option>
                                                     </select>
                                                 </td>

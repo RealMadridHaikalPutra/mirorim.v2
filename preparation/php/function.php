@@ -43,11 +43,11 @@ if(isset($_POST['newmultiitem'])){
                             $addnew1 = mysqli_query($conn, "INSERT INTO product_id(image, nama, jenis) VALUES('$image','$nama - $variant[$i]','$reject')");
                             if($addnew1){
                                 $select1 = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama - $variant[$i]' AND jenis='Reject'");
-                                $data1 = mysqli_fetch_array($select);
+                                $data1 = mysqli_fetch_array($select1);
                                 $idp1 = $data1['id_product'];
 
                                 if($select1){
-                                    $insert1 = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp')");
+                                    $insert1 = mysqli_query($conn, "INSERT INTO toko_id(id_product) VALUES('$idp1')");
                                     header('location:?url=komponen');
                                     } else {
 

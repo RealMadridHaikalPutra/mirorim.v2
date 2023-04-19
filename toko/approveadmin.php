@@ -30,7 +30,7 @@
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $select = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='Approved'");
+                                                $select = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='On Process'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($select)){
                                             ?>

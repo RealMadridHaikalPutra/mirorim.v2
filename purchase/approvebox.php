@@ -60,7 +60,7 @@
                                                     <td><?=$data['box_total'];?></td>
                                                     <td><?=$data['kubik_order'];?> m³</td>
                                                     <th><?=$data['kubik_total'];?>m³</th>
-                                                    <th><?=$kurang;?></th>
+                                                    <th><?=$kurang;?> m³</th>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -66,6 +66,7 @@
                                                 <th>No Invoice</th>
                                                 <th>No Resi</th>
                                                 <th>Box Number</th>
+                                                <th>Qty Box</th>
                                                 <th>kubikasi</th>
                                                 <th>Status</th>
                                             </tr>
@@ -82,6 +83,7 @@
                                                 <th data-bs-toggle="modal" data-bs-target="#largeModal<?=$data['invoice'];?>"><?=$data['invoice'];?></th>
                                                 <td><?=$data['resi'];?></td>
                                                 <td class="text-uppercase"><?=$data['box'];?></td>
+                                                <td><?=$data['box_order'];?></td>
                                                 <td><?=$data['kubik_order'];?> m³</td>
                                                 <td><?=$data['status_box'];?></td>
                                             </tr>
