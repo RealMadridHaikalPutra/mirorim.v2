@@ -59,7 +59,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $select = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id, product_id WHERE item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
+                                                    $select = mysqli_query($conn, "SELECT invoice, box, nama, quantity_count, id_item FROM item_id, boxorder_id, product_id WHERE item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
                                                     $i = 1;
                                                     while($data=mysqli_fetch_array($select)){
                                                 ?>
@@ -107,7 +107,7 @@
                                             if(isset($_POST['inputnobox'])){
                                                 $box = $_POST['nobox'];
                                                 
-                                                $ambildata = mysqli_query($conn, "SELECT * FROM item_id, boxorder_id, product_id, toko_id WHERE toko_id.id_product = product_id.id_product AND item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
+                                                $ambildata = mysqli_query($conn, "SELECT image, quantity_count, status_item, invoice, box, nama, sku_toko FROM item_id, boxorder_id, product_id, toko_id WHERE toko_id.id_product = product_id.id_product AND item_id.id_box=boxorder_id.id_box AND item_id.id_product=product_id.id_product AND box='$box'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambildata)){
                                                     $quantity = $data['quantity_count'];

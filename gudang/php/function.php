@@ -55,10 +55,15 @@ if (isset($_POST['editnonsku'])) {
             $quantityitem = $data['quantity_count'];
 
             $kurang = $quantityitem - $quantity;
-            if ($select) {
+            if ($quantity>$quantityitem) {
+                echo '
+                    <script>
+                        alert("Quantity Melebihi");
+                        window.location.href="?url=nonsku";
+                    </script>';
+            } else {
                 $update = mysqli_query($conn, "UPDATE item_id SET quantity_count='$kurang' WHERE id_product='$idp'");
                 header('location:?url=gudang');
-            } else {
             }
         } else {
         }

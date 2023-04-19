@@ -28,7 +28,7 @@
                                             $k = 1;
 
                                             for($i=0; $i < $hitung; $i++){
-                                                $ambilperhitungan = mysqli_query($conn, "SELECT * FROM product_id WHERE nama='$nama[$i]'");
+                                                $ambilperhitungan = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE toko_id.id_product = product_id.id_product AND nama='$nama[$i]'");
                                                 $jum = 1;
                                                 while($data=mysqli_fetch_array($ambilperhitungan)){
                                                     $idp = $data['id_product'];

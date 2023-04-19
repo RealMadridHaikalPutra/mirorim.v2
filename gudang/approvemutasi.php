@@ -29,7 +29,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $select = mysqli_query($conn, "SELECT * FROM mutasi_id, gudang_id, product_id WHERE mutasi_id.id_gudang=gudang_id.id_gudang AND gudang_id.id_product=product_id.id_product AND status_mutasi='Not Approved'");
+                                                        $select = mysqli_query($conn, "SELECT id_gudang, nama, skug_lama, skug_baru, quantity_out, id_gudang, id_mutasi FROM mutasi_id, gudang_id, product_id WHERE mutasi_id.id_gudang=gudang_id.id_gudang AND gudang_id.id_product=product_id.id_product AND status_mutasi='Not Approved'");
                                                         $i = 1;
                                                         while ($data = mysqli_fetch_array($select)) {
                                                             $idg = $data['id_gudang'];
@@ -78,7 +78,7 @@
                                         <tbody>
                                             <?php
                                                 
-                                                $select = mysqli_query($conn, "SELECT * FROM product_id, gudang_id, mutasi_id WHERE product_id.id_product=gudang_id.id_gudang AND gudang_id.id_gudang=mutasi_id.id_gudang");
+                                                $select = mysqli_query($conn, "SELECT image, status_mutasi, nama, skug_lama, skug_baru, quantity_out, datetime FROM product_id, gudang_id, mutasi_id WHERE product_id.id_product=gudang_id.id_gudang AND gudang_id.id_gudang=mutasi_id.id_gudang");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($select)){
                                                     $status = $data['status_mutasi'];
@@ -94,7 +94,7 @@
                                                  }
                                             ?>
                                             <tr>
-                                                <th><?=$i;?></th>
+                                                <th><?=$i++;?></th>
                                                 <td>Gambar</td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td class="text-uppercase"><?=$data['skug_lama'];?></td>

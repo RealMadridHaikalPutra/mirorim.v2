@@ -1,20 +1,17 @@
-<script
- src="https://code.jquery.com/jquery-3.4.1.min.js"
- integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
- crossorigin="anonymous"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/i18n/id.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/i18n/id.js" type="text/javascript"></script>
 
- <script type="text/javascript">
-  $(document).ready(function() {
-      $('#hobi').select2({
-       placeholder: "Pilih Hobi",
-    allowClear: true,
-    language: "id"
-      });
-  });
- </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#hobi').select2({
+            placeholder: "Pilih Hobi",
+            allowClear: true,
+            language: "id"
+        });
+    });
+</script>
 <div class="container-fluid">
     <h1 class="mt-4">History Refill & Request</h1>
     <ol class="breadcrumb mb-4">
@@ -49,7 +46,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $select = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='unprocessed' ");
+                                $select = mysqli_query($conn, "SELECT quantity_req, id_product, nama, sku_toko, type_req FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='unprocessed' ");
                                 $i = 1;
                                 while ($data = mysqli_fetch_array($select)) {
                                     $quantity = $data['quantity_req'];
@@ -67,20 +64,23 @@
                                             echo "<td>$quantity</td>";
                                         }
                                         ?>
-                                        
+
                                         <td valign="top">
+                                            <select class="form-control" name="idg[]">
+
                                                 <?php
-                                            $selectopsi = mysqli_query($conn, "SELECT * FROM gudang_id WHERE id_product='$idp'");
-                                            $i = 1;
-                                            while($opsi = mysqli_fetch_array($selectopsi)){
-                                                
+                                                $selectopsi = mysqli_query($conn, "SELECT id_gudang, sku_gudang FROM gudang_id WHERE id_product='$idp'");
+                                                $i = 1;
+                                                while ($opsi = mysqli_fetch_array($selectopsi)) {
+
                                                 ?>
-                                            <input type="checkbox" name="idg[]" value="<?=$opsi['id_gudang'];?>"> <?=$opsi['sku_gudang'];?><br>
-                                            <?php
-                                            }
-                                            ?>
-                                            </td>
-                                        <td><input readonly type="text" name="picker" value="<?= $_SESSION['nama_user'];?>" class="form-control"></td>
+                                                    <option value="<?= $opsi['id_gudang']; ?>"><?= $opsi['sku_gudang']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td><input readonly type="text" name="picker" value="<?= $_SESSION['nama_user']; ?>" class="form-control"></td>
                                         <td><input type="checkbox" name="cek[]" value="<?= $data['id_request']; ?>" class="form-check">
                                             <input type="hidden" value="On Process" name="stat">
                                         </td>
@@ -116,7 +116,7 @@
                     </thead>
                     <tbody>
                         <?php
-                        $select = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product");
+                        $select = mysqli_query($conn, "SELECT nama, sku_toko, requester, date, picker, quantity_req, type_req, status_req FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product");
                         $i = 1;
                         while ($data = mysqli_fetch_array($select)) {
                             $stat = $data['status_req'];
