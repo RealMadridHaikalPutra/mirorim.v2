@@ -1,3 +1,12 @@
+<?php
+
+$idp = $_GET['idp'];
+$select = mysqli_query($conn, "SELECT * FROM product_id WHERE id_product='$idp'");
+$data = mysqli_fetch_array($select);
+
+?>
+
+
 <div class="row">
     <div class="card">
         <div class="card-body">
@@ -21,35 +30,35 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Checklist</th>
+                                    <th>SKU</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                if(isset($_POST['komponenquantity'])){
-                                    $idp = $_POST['idp'];
                                     $cek = $_POST['cek'];
-                                    $jum = $_POST['jum'];
 
+                                    $jum = count($cek);
                                     for($i = 0; $i < $jum; $i++){
-                                        $select = mysqli_query($conn, "SELECT nama, sku_toko FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND product_id.id_product='$idp[$i]'");
-                                        $data = mysqli_fetch_array($select);
+                                        $select = mysqli_query($conn, "SELECT * FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND product_id.id_product='$cek[$i]'");
+                                        $opsi = mysqli_fetch_array($select);
                                 
                                 ?>
                                     <tr>
                                         <th><?= $jum; ?></th>
-                                        <td><?= $data['nama']; ?></td>
-                                        <td><?=$data['sku_toko'];?></td>
+                                        <td><?= $opsi['nama']; ?></td>
+                                        <td><?=$opsi['sku_toko'];?></td>
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-label" name="quantity[]" require="">
+                                            <input type="number" class="form-control" name="quantity[]" require="">
                                             <input type="hidden" name="jum[]" value="<?= $jum; ?>">
-                                            <input type="hidden" name="idp" value="<?= $idp; ?>">
+                                            <input type="hidden" name="nama[]" value="<?= $opsi['nama']; ?>">
+                                            <input type="hidden" name="idp" value="<?=$idp;?>">
                                         </td>
                                     </tr>
                                 <?php
-                                }}
+                                }
 
                                 ?>
                             </tbody>
