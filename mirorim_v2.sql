@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2023 at 11:18 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Apr 19, 2023 at 06:43 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `boxorder_id` (
   `resi` varchar(200) NOT NULL,
   `box` varchar(200) NOT NULL,
   `box_order` int(11) NOT NULL,
-  `kubik_order` float NOT NULL,
+  `kubik_order` varchar(200) NOT NULL,
   `status_box` varchar(200) NOT NULL DEFAULT 'Not Approved'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -43,8 +43,10 @@ CREATE TABLE `boxorder_id` (
 --
 
 INSERT INTO `boxorder_id` (`id_box`, `id_delivery`, `invoice`, `resi`, `box`, `box_order`, `kubik_order`, `status_box`) VALUES
-(1, 1, '66666', '6666', '666', 6, 6.6, 'Approved'),
-(2, 1, '55555', '5555', '555', 5, 5.5, 'Approved');
+(1, 1, '66666', '6666', '666', 6, '6.6', 'Approved'),
+(2, 1, '55555', '5555', '555', 5, '5.5', 'Approved'),
+(3, 2, '1234', '1234', '123', 12, '1.2', 'Approved'),
+(4, 3, '1111', '1111', '1111', 11, '1.1', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,9 @@ CREATE TABLE `delivery_id` (
 --
 
 INSERT INTO `delivery_id` (`id_delivery`, `box_total`, `kubik_total`, `date`, `pengiriman`, `status_delivery`) VALUES
-(1, 11, 11, '2023-04-04 16:59:58', 'By Ship', 'Approved');
+(1, 11, 11, '2023-04-04 16:59:58', 'By Ship', 'Approved'),
+(2, 12, 1.5, '2023-04-17 10:15:22', 'By Sea', 'Approved'),
+(3, 11, 1.1, '2023-04-17 12:23:49', 'By Sea', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -91,12 +95,17 @@ INSERT INTO `gudang_id` (`id_gudang`, `sku_gudang`, `id_product`, `quantity`, `l
 (2, 'k4b1', 1, 100, 4),
 (3, 'k5a1', 2, 300, 5),
 (4, 'K6A1', 3, 600, 6),
-(5, '', 5, 200, 3),
+(5, 'A1B2', 5, 200, 3),
 (6, 'M1B2', 10, -300, 3),
 (7, 'M1B3', 11, -600, 3),
-(8, 'a1a1', 12, 100, 1),
-(9, 'a2a2', 13, 200, 2),
-(10, 'a3a3', 14, 300, 3);
+(8, 'a1a1', 12, 50, 1),
+(9, 'a2a2', 13, 209, 2),
+(10, 'a3a3', 14, 300, 3),
+(23, 'T1A1', 15, 100, 7),
+(24, 'T1A2', 15, 500, 7),
+(25, 'A5B4', 21, 200, 1),
+(26, 'A5B3', 22, 406, 1),
+(27, 'A5B7', 21, 200, 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +129,11 @@ CREATE TABLE `item_id` (
 INSERT INTO `item_id` (`id_item`, `id_product`, `id_box`, `quantity_count`, `quantity_order`, `status_item`) VALUES
 (1, 1, 1, 0, 400, 'Approved'),
 (2, 2, 1, 0, 500, 'Approved'),
-(3, 3, 1, 0, 600, 'Approved');
+(3, 3, 1, 0, 600, 'Approved'),
+(4, 15, 3, 0, 1000, 'Approved'),
+(5, 16, 3, 1000, 1000, 'Approved'),
+(6, 21, 4, 0, 1000, 'Approved'),
+(7, 22, 4, -1, 1005, 'Approved');
 
 -- --------------------------------------------------------
 
@@ -141,7 +154,34 @@ CREATE TABLE `list_komponen` (
 
 INSERT INTO `list_komponen` (`id_list_komponen`, `id_product_finish`, `id_komponen`, `quantity_komponen`) VALUES
 (4, 5, 10, 10),
-(5, 5, 11, 20);
+(5, 5, 11, 20),
+(7, 13, 12, 5),
+(8, 13, 14, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `iduser` int(11) NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `nama_user` varchar(200) NOT NULL,
+  `role` enum('gudang','super_gudang','toko','super_toko','preparation','super_preparation','purchase','admin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`iduser`, `username`, `password`, `nama_user`, `role`) VALUES
+(1, 'purchase', 'purchase', 'Via', 'purchase'),
+(2, 'gudang', 'gudang', 'Dimas', 'gudang'),
+(3, 'supergudang', 'supergudang', 'Zhaldi', 'super_gudang'),
+(4, 'prepare', 'prepare', 'Ilham', 'preparation'),
+(5, 'toko', 'toko', 'Rido', 'toko');
 
 -- --------------------------------------------------------
 
@@ -164,9 +204,8 @@ CREATE TABLE `mutasi_id` (
 --
 
 INSERT INTO `mutasi_id` (`id_mutasi`, `id_gudang`, `skug_lama`, `skug_baru`, `quantity_out`, `datetime`, `status_mutasi`) VALUES
-(12, 5, 'M1B1', 'M1B0', 100, '2023-04-17 07:55:00', 'Approved'),
-(13, 5, 'M1B1', 'M1B1', 150, '2023-04-17 08:00:50', 'Not Approved'),
-(15, 5, 'M1B1', 'M1B5', 200, '2023-04-17 08:05:21', 'Not Approved');
+(26, 27, 'A5B7', 'A5B4', 200, '2023-04-18 06:57:59', 'Not Approved'),
+(27, 1, 'K4A1', 'K4B1', 100, '2023-04-18 06:59:23', 'Not Approved');
 
 -- --------------------------------------------------------
 
@@ -194,7 +233,23 @@ INSERT INTO `product_id` (`id_product`, `image`, `nama`, `jenis`) VALUES
 (11, 'e5efb94b2fe3a573372cb1a9ac2eadce.webp', 'Kok', 'Mentah'),
 (12, '3f6f1327e3f0fbc128f03c9525877956.jpg', '1', 'Mentah'),
 (13, '9758261e6c2d791231c95ea9ea4a2857.jpg', '2', 'Mateng'),
-(14, '1938611e2a1ab1ca63294668f3e5aaf1.png', '3', 'Mentah');
+(14, '1938611e2a1ab1ca63294668f3e5aaf1.png', '3', 'Mentah'),
+(15, 'c84581e58fa81cafc01373a6c68d0526.png', 'Resistor - 100 ohm', 'Mentah'),
+(16, 'c84581e58fa81cafc01373a6c68d0526.png', 'Resistor - 200 ohm', 'Mentah'),
+(17, '7a9f076745875b732da5d626e8057327.png', 'Ampli TDA - Sub tone', 'Mateng'),
+(18, '7a9f076745875b732da5d626e8057327.png', 'Ampli TDA - Sub tone', 'Reject'),
+(19, '7a9f076745875b732da5d626e8057327.png', 'Ampli TDA - Sub tone Control', 'Mateng'),
+(20, '7a9f076745875b732da5d626e8057327.png', 'Ampli TDA - Sub tone Control', 'Reject'),
+(21, '5ecade49f2d601eec7f900f57bf41ee2.jpeg', 'Capasitor - 100UF', 'Mentah'),
+(22, '5ecade49f2d601eec7f900f57bf41ee2.jpeg', 'Capasitor - 200UF', 'Mentah'),
+(27, '83ac22a8d28d93564c47d0ee8c7fbb97.jpeg', 'gatau - 1', 'Mateng'),
+(28, '83ac22a8d28d93564c47d0ee8c7fbb97.jpeg', 'gatau - 1', 'Reject'),
+(31, 'ee25217ad4d9b0c5c6753ef7f54cafad.jpeg', 'gatau - 2', 'Mateng'),
+(32, 'ee25217ad4d9b0c5c6753ef7f54cafad.jpeg', 'gatau - 2', 'Reject'),
+(33, 'd27822842518912d57fadd3076eea49a.png', 'coba - 2', 'Mateng'),
+(34, 'd27822842518912d57fadd3076eea49a.png', 'coba - 2', 'Reject'),
+(35, 'd27822842518912d57fadd3076eea49a.png', 'coba - 3', 'Mateng'),
+(36, 'd27822842518912d57fadd3076eea49a.png', 'coba - 3', 'Reject');
 
 -- --------------------------------------------------------
 
@@ -221,7 +276,15 @@ CREATE TABLE `request_id` (
 
 INSERT INTO `request_id` (`id_request`, `id_toko`, `id_gudang`, `quantity_req`, `quantity_count`, `type_req`, `status_req`, `picker`, `date`, `requester`) VALUES
 (1, 1, 1, 200, 200, 'request', 'Approved', '', '2023-04-05 00:12:10', ''),
-(2, 2, 3, 200, 200, 'refill', 'Approved', '', '2023-04-05 00:12:10', '');
+(2, 2, 3, 200, 200, 'refill', 'Approved', '', '2023-04-05 00:12:10', ''),
+(4, 14, 23, 400, 400, 'refill', 'Approved', 'Dimas', '2023-04-17 17:30:39', 'Rido'),
+(5, 20, 25, 500, 500, 'refill', 'Approved', 'Dimas', '2023-04-17 19:44:36', 'Rido'),
+(6, 21, 26, 500, 500, 'refill', 'Approved', 'Dimas', '2023-04-17 19:44:36', 'Rido'),
+(7, 20, 25, 100, 100, 'request', 'Approved', 'Dimas', '2023-04-17 20:21:39', 'Rido'),
+(8, 21, 26, 100, 100, 'request', 'Approved', 'Dimas', '2023-04-17 20:21:39', 'Rido'),
+(9, 20, 0, 0, 0, 'refill', 'unprocessed', '', '2023-04-18 00:23:42', 'Rido'),
+(10, 21, 0, 30, 0, 'request', 'unprocessed', '', '2023-04-18 00:24:02', 'Rido'),
+(11, 14, 0, 100, 0, 'request', 'unprocessed', '', '2023-04-18 00:59:04', 'Rido');
 
 -- --------------------------------------------------------
 
@@ -253,7 +316,9 @@ CREATE TABLE `request_prepare` (
 
 INSERT INTO `request_prepare` (`id_prepare`, `id_product_finish`, `quantity_req`, `quantity_matang`, `quantity_reject`, `type_req`, `status_prepare`, `receiver`, `worker`, `requester`, `date_receiver`, `date_start`, `date_finish`, `gudang_in`, `gudang_out`) VALUES
 (45, 5, 30, 20, 10, '', 'Diterima', '', '', '', '2023-04-09 23:13:29', '2023-04-09 23:14:58', '2023-04-09 23:30:01', '5', '5'),
-(46, 5, 10, 8, 2, '', 'Diterima', '', '', '', '2023-04-09 23:13:53', '2023-04-09 23:28:35', '2023-04-09 23:30:12', '5', '5');
+(46, 5, 10, 8, 2, '', 'Diterima', '', '', '', '2023-04-09 23:13:53', '2023-04-09 23:28:35', '2023-04-09 23:30:12', '5', '5'),
+(48, 13, 5, 4, 1, 'S', 'Diterima', 'Ilham', 'Ilham', 'Dimas', '2023-04-17 12:02:22', '2023-04-17 12:03:14', '2023-04-17 12:04:54', '9', '9'),
+(50, 13, 5, 5, 0, 'P', 'Diterima', 'Ilham', 'Ilham', 'Dimas', '2023-04-17 12:02:22', '2023-04-17 12:03:14', '2023-04-17 12:04:54', '9', '9');
 
 -- --------------------------------------------------------
 
@@ -277,11 +342,27 @@ INSERT INTO `toko_id` (`id_toko`, `sku_toko`, `id_product`, `quantity_toko`) VAL
 (2, '5K1', 2, 0),
 (3, '6K1', 3, 0),
 (4, '2K1', 5, 0),
-(9, '-', 10, 0),
-(10, '-', 11, 0),
-(11, '-', 12, 0),
-(12, '-', 13, 0),
-(13, '-', 14, 0);
+(9, '1a1', 10, 0),
+(10, '1a2', 11, 0),
+(11, '1a3', 12, 0),
+(12, '1a4', 13, 0),
+(13, '1a5', 14, 0),
+(14, '8A11', 15, 0),
+(15, '8A15', 16, 0),
+(16, '7U6', 17, 0),
+(17, '7U6', 17, 0),
+(18, '7U6', 19, 0),
+(19, '7U6', 19, 0),
+(20, '7U8', 21, 0),
+(21, '8A9', 22, 0),
+(26, '-', 27, 0),
+(29, '-', 28, 0),
+(30, '-', 31, 0),
+(31, '-', 32, 0),
+(32, '-', 33, 0),
+(33, '-', 34, 0),
+(34, '-', 35, 0),
+(35, '-', 36, 0);
 
 -- --------------------------------------------------------
 
@@ -343,6 +424,12 @@ ALTER TABLE `list_komponen`
   ADD KEY `id_komponen` (`id_komponen`);
 
 --
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`iduser`);
+
+--
 -- Indexes for table `mutasi_id`
 --
 ALTER TABLE `mutasi_id`
@@ -393,61 +480,67 @@ ALTER TABLE `total_req`
 -- AUTO_INCREMENT for table `boxorder_id`
 --
 ALTER TABLE `boxorder_id`
-  MODIFY `id_box` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_box` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `delivery_id`
 --
 ALTER TABLE `delivery_id`
-  MODIFY `id_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gudang_id`
 --
 ALTER TABLE `gudang_id`
-  MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `item_id`
 --
 ALTER TABLE `item_id`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `list_komponen`
 --
 ALTER TABLE `list_komponen`
-  MODIFY `id_list_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_list_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mutasi_id`
 --
 ALTER TABLE `mutasi_id`
-  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_id`
 --
 ALTER TABLE `product_id`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `request_id`
 --
 ALTER TABLE `request_id`
-  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `request_prepare`
 --
 ALTER TABLE `request_prepare`
-  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `toko_id`
 --
 ALTER TABLE `toko_id`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `total_req`
