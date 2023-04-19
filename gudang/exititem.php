@@ -21,6 +21,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-primary">Check List</a>
+            <a type="button" href="exportrefill.php" class="btn btn-outline-info">Download Laporan</a>
         </div>
         <div class="modal fade" id="smallModalceklist" tabindex="-1">
             <div class="modal-dialog modal-lg">
@@ -46,7 +47,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $select = mysqli_query($conn, "SELECT quantity_req, id_product, nama, sku_toko, type_req FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='unprocessed' ");
+                                $select = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='unprocessed' ");
                                 $i = 1;
                                 while ($data = mysqli_fetch_array($select)) {
                                     $quantity = $data['quantity_req'];

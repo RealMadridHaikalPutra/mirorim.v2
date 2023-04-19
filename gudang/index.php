@@ -27,7 +27,7 @@ if ($_SESSION['role'] != 'gudang') {
     <title>Mirorim</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="../css/styles.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <style>
         .zoomable {
@@ -51,7 +51,7 @@ if ($_SESSION['role'] != 'gudang') {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#"><?= $_SESSION['nama_user'];?> </a>
+                    <a class="dropdown-item" href="#"><?= $_SESSION['nama_user']; ?> </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="../logout.php">Logout</a>
                 </div>
@@ -88,11 +88,11 @@ if ($_SESSION['role'] != 'gudang') {
                                 <a class="nav-link" href="index.php?url=exitprepare">Req Preparation</a>
                             </nav>
                         </div>
-                        </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="medium">Logged in as: <?= $_SESSION['nama_user'];?></div>
-                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="medium">Logged in as: <?= $_SESSION['nama_user']; ?></div>
+                </div>
             </nav>
         </div>
         <div id="layoutSidenav_content">
@@ -127,6 +127,7 @@ if ($_SESSION['role'] != 'gudang') {
             </footer>
         </div>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>

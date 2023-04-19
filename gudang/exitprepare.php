@@ -8,6 +8,7 @@
         <div class="card-header">
             <a type="button" href="index.php?url=request" class="btn btn-outline-success">Request</a>
             <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalceklist" class="btn btn-outline-primary">Check List</a>
+            <a type="button" href="exportprepare.php" class="btn btn-outline-info">Download Laporan</a>
         </div>
         <div class="modal fade" id="smallModalceklist" tabindex="-1">
             <div class="modal-dialog modal-lg">

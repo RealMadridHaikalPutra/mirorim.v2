@@ -29,7 +29,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $select = mysqli_query($conn, "SELECT id_gudang, nama, skug_lama, skug_baru, quantity_out, id_gudang, id_mutasi FROM mutasi_id, gudang_id, product_id WHERE mutasi_id.id_gudang=gudang_id.id_gudang AND gudang_id.id_product=product_id.id_product AND status_mutasi='Not Approved'");
+                                                        $select = mysqli_query($conn, "SELECT * FROM mutasi_id, gudang_id, product_id WHERE mutasi_id.id_gudang=gudang_id.id_gudang AND gudang_id.id_product=product_id.id_product AND status_mutasi='Not Approved'");
                                                         $i = 1;
                                                         while ($data = mysqli_fetch_array($select)) {
                                                             $idg = $data['id_gudang'];
@@ -40,7 +40,7 @@
                                                                 <td><?= $data['skug_lama']; ?></td>
                                                                 <td><?= $data['skug_baru']; ?></td>
                                                                 <td><?= $data['quantity_out']; ?></td>
-                                                                <td><input type="checkbox" value="<?= $data['id_gudang']; ?>" name="cek[]" class="form-input"></td>
+                                                                <td><input type="checkbox" value="<?= $data['id_mutasi']; ?>" name="cek[]" class="form-input"></td>
                                                                 <input type="hidden" name="idg[]" value="<?= $data['id_gudang']; ?>">
                                                                 <input type="hidden" name="idm[]" value="<?= $data['id_mutasi']; ?>">
                                                                 <input type="hidden" name="stat" value="Approved">

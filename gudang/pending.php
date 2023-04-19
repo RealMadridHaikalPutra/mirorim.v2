@@ -16,7 +16,7 @@
                                                 <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU</th>
-                                                <th>Quantity Item</th>
+                                                <th>Jenis</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -41,6 +41,7 @@
                                                 <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
+                                                <td><?=$data['jenis'];?></td>
                                             </tr>
                                         
                                             <div class="modal fade" id="largeModal" tabindex="-1">
@@ -64,13 +65,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
-                                                        <label>Quantity</label>
-                                                        <div class="form-floating">
-                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Warehouse" require>
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
                                                         <label>Warehouse</label>
                                                         <div class="form-floating">
                                                         <input type="number" class="form-control text-uppercase" id="floatingName" name="gudang" placeholder="Warehouse" require>
@@ -79,7 +73,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="text-center">
-                                                        <button type="submit" name="editnonsku" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="editprepare" class="btn btn-primary">Submit</button>
                                                     </div> 
                                             </div>
                                             </form>
