@@ -253,25 +253,25 @@ if (isset($_POST['mutasi'])) {
     $quantity = $_POST['quantity'];
     $quantity1 = $_POST['quantity1'];
     $skug1 = $_POST['skug1'];
+    $lokasi = $_POST['lokasi'];
 
     $jum = count($skug);
     for ($i = 0; $i < $jum; $i++) {
-        $select = mysqli_query($conn, "SELECT quantity, sku_gudang, id_product, lokasi_gudang FROM gudang_id WHERE id_gudang='$idg[$i]'");
+        $select = mysqli_query($conn, "SELECT quantity, sku_gudang, id_product FROM gudang_id WHERE id_gudang='$idg[$i]'");
         $data = mysqli_fetch_array($select);
         $idp = $data['id_product'];
-        $lok = $data['lokasi_gudang'];
 
         if ($quantity == $quantity1) {
             if ($skug == $skug1) {
             } else {
-                $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                $insert = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out, lokasi_mutasi) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]','$lokasi[$i]')");
                 header('location:?url=mutasi');
             }
         } else {
             $selectnum = mysqli_query($conn, "SELECT sku_gudang FROM gudang_id WHERE sku_gudang='$skug[$i]'");
             $hitung = mysqli_num_rows($selectnum);
             if ($hitung > 0) {
-                $insert2 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                $insert2 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out, lokasi_mutasi) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]','$lokasi[$i]')");
                 header('location:?url=mutasi');
             } else {
                 if ($skug == $skug1) {
@@ -281,7 +281,7 @@ if (isset($_POST['mutasi'])) {
                         window.location.href="?url=mutasi";
                     </script>';
                 } else {
-                    $insert3 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]')");
+                    $insert3 = mysqli_query($conn, "INSERT INTO mutasi_id(id_gudang, skug_lama, skug_baru, quantity_out, lokasi_mutasi) VALUES('$idg[$i]','$skug1[$i]','$skug[$i]','$quantity[$i]','$lokasi[$i]')");
                     header('location:?url=mutasi');
                 }
             }
@@ -303,13 +303,13 @@ if (isset($_POST['mutasiacc'])) {
         $data = mysqli_fetch_array($select);
         $skugl = $data['skug_lama'];
         $skugb = $data['skug_baru'];
+        $lok = $data['lokasi_mutasi'];
         $quantity = $data['quantity_out'];
 
         if ($skugl == $skugb) {
-            $update1 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
-            header('location:?url=approvemutasi');
+
         } else {
-            $selectgudang = mysqli_query($conn, "SELECT sku_gudang, quantity FROM gudang_id WHERE sku_gudang='$skugb'");
+            $selectgudang = mysqli_query($conn, "SELECT * FROM gudang_id WHERE sku_gudang='$skugb'");
             $data1 = mysqli_fetch_array($selectgudang);
             $quantity1 = $data1['quantity'];
             $skug = mysqli_num_rows($selectgudang);
@@ -327,14 +327,29 @@ if (isset($_POST['mutasiacc'])) {
                 } else {
                 }
             } else {
-                $update2 = mysqli_query($conn, "UPDATE gudang_id SET sku_gudang='$skugb' WHERE sku_gudang='$skugl'");
-                if ($update2) {
-                    $update3 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
-                    header('location:?url=approvemutasi');
+                $selectgudang1 = mysqli_query($conn, "SELECT * FROM gudang_id WHERE sku_gudang='$skugl'");
+                $data1 = mysqli_fetch_array($selectgudang1);
+                $quantity2 = $data1['quantity'];
+                $idp = $data1['id_product'];
+
+                if($selectgudang1){
+                    $update2 = mysqli_query($conn, "INSERT INTO gudang_id(id_product, sku_gudang, quantity, lokasi_gudang) VALUES('$idp','$skugb','$quantity','$lok')");
+                    if ($update2) {
+                        $kurang = $quantity2 - $quantity;
+                        $update5 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE sku_gudang='$skugl'");
+                        if($update5){
+                            $update3 = mysqli_query($conn, "UPDATE mutasi_id SET status_mutasi='$stat' WHERE id_mutasi='$cek[$i]'");
+                            header('location:?url=approvemutasi');
+                        } else {
+                            
+                        }
+                    } else {
+                    }
                 } else {
+        
+                }
                 }
             }
-        }
     } {
     }
 }

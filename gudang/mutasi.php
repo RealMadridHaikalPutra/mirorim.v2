@@ -26,7 +26,7 @@
                                         <tbody>
                                             <?php
                                                 
-                                                $select = mysqli_query($conn, "SELECT * FROM product_id, gudang_id, mutasi_id WHERE product_id.id_product=gudang_id.id_gudang AND gudang_id.id_gudang=mutasi_id.id_gudang");
+                                                $select = mysqli_query($conn, "SELECT * FROM product_id, gudang_id, mutasi_id WHERE product_id.id_product=gudang_id.id_product AND gudang_id.id_gudang=mutasi_id.id_gudang");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($select)){
                                                     $status = $data['status_mutasi'];
