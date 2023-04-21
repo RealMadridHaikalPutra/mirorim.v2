@@ -86,3 +86,4 @@
                     myInput.type = selectedOption;
                     });
                 </script>
+                

@@ -144,5 +144,44 @@ if(isset($_POST['approveitem'])){
     }
 }
 
+if(isset($_POST['orderhutang'])){
+    $idh = $_POST['idh'];
+    $stat = $_POST['status'];
+
+    $update = mysqli_query($conn, "UPDATE hutang_id SET status_hutang='$stat' WHERE id_hutang='$idh'");
+    header('location:?url=hutang');
+}
+
+if(isset($_POST['buttonhutang'])){
+    $quantity = $_POST['hutang'];
+    $idh = $_POST['idh'];
+    $stat = $_POST['status'];
+
+    $select = mysqli_query($conn, "SELECT quantity_hutang FROM hutang_id WHERE id_hutang='$idh'");
+    $data = mysqli_fetch_array($select);
+    $quantity1 = $data['quantity_hutang'];
+
+    $kurang = $quantity1-$quantity;
+
+    if($select){
+        $update = mysqli_query($conn, "UPDATE hutang_id SET quantity_hutang='$kurang' WHERE id_hutang='$idh'");
+        header('location:?url=hutang');
+        if($update){
+            $select1 = mysqli_query($conn, "SELECT quantity_hutang FROM hutang_id WHERE id_hutang='$idh'");
+            $opsi = mysqli_fetch_array($select1);
+            $quantity2 = $opsi['quantity_hutang'];
+
+            if($quantity2==0){
+                $update3 = mysqli_query($conn, "UPDATE hutang_id SET status_hutang='$stat' WHERE id_hutang='$idh'");
+                header('location:?url=hutang');
+            } else {
+
+            }
+        }
+    }else{
+
+    }
+}
+
 
 ?>

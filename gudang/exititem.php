@@ -52,6 +52,7 @@
                                 while ($data = mysqli_fetch_array($select)) {
                                     $quantity = $data['quantity_req'];
                                     $idp = $data['id_product'];
+                                    $status = $data['type_req'];
                                 ?>
                                     <tr>
                                         <td><?= $i++; ?></td>
@@ -67,19 +68,20 @@
                                         ?>
 
                                         <td valign="top">
-                                            <select class="form-control" name="idg[]">
-
-                                                <?php
-                                                $selectopsi = mysqli_query($conn, "SELECT id_gudang, sku_gudang FROM gudang_id WHERE id_product='$idp'");
-                                                $i = 1;
+                                            <?php
+                                                $selectopsi = mysqli_query($conn, "SELECT id_gudang, sku_gudang, quantity FROM gudang_id WHERE id_product='$idp'");
                                                 while ($opsi = mysqli_fetch_array($selectopsi)) {
+                                                    $id = $opsi['id_gudang'];
+                                                    $sku = $opsi['sku_gudang'];
 
-                                                ?>
-                                                    <option value="<?= $opsi['id_gudang']; ?>"><?= $opsi['sku_gudang']; ?></option>
-                                                <?php
+                                            ?>
+                                                    <input type='text' class='form-control' value='<?=$sku;?>' name='skug[]' readonly>
+                                                    <input type='text' class='form-control' value='<?=$id;?>' name='idg[]' readonly>
+                                                    <input type='number' class='form-control' value='0' max='<?=$opsi['quantity'];?>' min="0" name='quantitym[]'><br>
+                                                    <input type='hidden' name='cek2[]' value='<?=$id;?>'>
+                                            <?php
                                                 }
-                                                ?>
-                                            </select>
+                                            ?>
                                         </td>
                                         <td><input readonly type="text" name="picker" value="<?= $_SESSION['nama_user']; ?>" class="form-control"></td>
                                         <td><input type="checkbox" name="cek[]" value="<?= $data['id_request']; ?>" class="form-check">
