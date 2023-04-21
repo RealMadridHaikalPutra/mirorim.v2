@@ -39,21 +39,35 @@ if(isset($_POST['approverefill'])){
         $select = mysqli_query($conn, "SELECT * FROM request_id WHERE id_request='$idt[$i]'");
         $data = mysqli_fetch_array($select);
         $qtyorder = $data['quantity_req'];
-        $idg = $data['id_gudang'];
+
         if($qtyorder==$quantity[$i]){
             $update = mysqli_query($conn, "UPDATE request_id SET quantity_count='$quantity[$i]', status_req='$stat[$i]' WHERE id_request='$idt[$i]'");
             if($update){
-                $selectopsi = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg'");
-                $opsi = mysqli_fetch_array($selectopsi);
-                $qty = $opsi['quantity'];
+                $selecttotal = mysqli_query($conn, "SELECT id_total, id_gudang, quantity_tambah FROM request_total WHERE id_request='$idt[$i]'");
+                while($opsi = mysqli_fetch_array($selecttotal)){
+                $id = $opsi['id_gudang'];
+                $qty = $opsi['quantity_tambah'];
+                $idtol = $opsi['id_total'];
 
-                $kurang = $qty-$quantity[$i];
-                if($selectopsi){
-                    $out = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idg'");
-                    header('location:?url=approve');
+                if($selecttotal){
+                    $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$id'");
+                    $opsi2 = mysqli_fetch_array($selectgudang);
+                    $qtyg = $opsi2['quantity'];
+
+                    $kurang = $qtyg-$qty;
+                    if($selectgudang){
+                        $updateg = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$id'");
+                        if($updateg){
+                            $updatetol = mysqli_query($conn, "UPDATE request_total SET status_total='$stat[$i]' WHERE id_total='$idtol'");
+                            header('location:?url=approve');
+                        }
+                    } else {
+
+                    }
                 } else {
 
-                }
+                }}
+
             } else {
 
             }
@@ -78,19 +92,33 @@ if(isset($_POST['approvereadmin'])){
     for($i = 0; $i < $jum; $i++){
         $update = mysqlI_query($conn, "UPDATE request_id SET quantity_req='$quantityr[$i]', quantity_count='$quantityc[$i]' WHERE id_request='$idt[$i]'");
         if($quantityc[$i]==$quantityr[$i]){
-            $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat[$i]' WHERE id_request='$idt[$i]'");
+            $update = mysqli_query($conn, "UPDATE request_id SET quantity_count='$quantity[$i]', status_req='$stat[$i]' WHERE id_request='$idt[$i]'");
             if($update){
-                $selectopsi = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
-                $opsi = mysqli_fetch_array($selectopsi);
-                $qty = $opsi['quantity'];
+                $selecttotal = mysqli_query($conn, "SELECT id_total, id_gudang, quantity_tambah FROM request_total WHERE id_request='$idt[$i]'");
+                while($opsi = mysqli_fetch_array($selecttotal)){
+                $id = $opsi['id_gudang'];
+                $qty = $opsi['quantity_tambah'];
+                $idtol = $opsi['id_total'];
 
-                $kurang = $qty-$quantityc[$i];
-                if($selectopsi){
-                    $out = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idg[$i]'");
-                    header('location:?url=approve');
+                if($selecttotal){
+                    $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$id'");
+                    $opsi2 = mysqli_fetch_array($selectgudang);
+                    $qtyg = $opsi2['quantity'];
+
+                    $kurang = $qtyg-$qty;
+                    if($selectgudang){
+                        $updateg = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$id'");
+                        if($updateg){
+                            $updatetol = mysqli_query($conn, "UPDATE request_total SET status_total='$stat[$i]' WHERE id_total='$idtol'");
+                            header('location:?url=approve');
+                        }
+                    } else {
+
+                    }
                 } else {
 
-                }
+                }}
+
             } else {
 
             }
@@ -121,5 +149,3 @@ if(isset($_POST['addsku'])){
     }
 
 }
-
-?>

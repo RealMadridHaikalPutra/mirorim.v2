@@ -131,46 +131,58 @@ if (isset($_POST['cektoko'])) {
     $idt = $_POST['cek'];
     $quantity = $_POST['quantity'];
     $stat = $_POST['stat'];
-    $idg = $_POST['idg'];
     $picker = $_POST['picker'];
+    // beda looping
+    $skug = $_POST['skug'];
+    $cek2 = $_POST['cek2'];
+    $idg = $_POST['idg'];
+    $quantitym = $_POST['quantitym'];
 
 
     $jum = count($idt);
     for ($i = 0; $i < $jum; $i++) {
-        $select = mysqli_query($conn, "SELECT type_req, quantity_req FROM request_id WHERE id_request='$idt[$i]'");
-        $data = mysqli_fetch_array($select);
-        $tipe = $data['type_req'];
-        $quantityreq = $data['quantity_req'];
+        $jum2 = count($cek2);
+        for($k = 0; $k < $jum2; $k++){
+            $select = mysqli_query($conn, "SELECT type_req, quantity_req FROM request_id WHERE id_request='$idt[$i]'");
+            $data = mysqli_fetch_array($select);
+            $tipe = $data['type_req'];
+            $quantityreq = $data['quantity_req'];
 
-        if ($tipe == 'refill') {
-            $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
-            $datagudang = mysqli_fetch_array($selectgudang);
-            $quantitygudang = $datagudang['quantity'];
-            if ($quantity[$i] > $quantitygudang) {
-                echo '
-                <script>
-                    alert("Qty Melebihi Stok Yang ada");
-                    window.location.href="?url=exititem";
-                </script>';
+            if($quantitym==0){
+                
             } else {
-                $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', id_gudang='$idg[$i]', status_req='$stat' WHERE id_request='$idt[$i]'");
-                header('location:?url=exititem');
+                if($tipe == 'refill'){
+                    $insert = mysqli_query($conn, "INSERT INTO request_total(id_request, id_gudang, quantity_tambah) VALUES('$idt[$i]','$idg[$k]','$quantitym[$k]')");
+                    if($insert){
+                        $delete = mysqli_query($conn, "DELETE FROM request_total WHERE quantity_tambah=0");
+                        if($delete){
+                            $update = mysqli_query($conn, "UPDATE request_id SET quantity_req='$quantity[$i]', status_req='$stat', picker='$picker' WHERE id_request='$idt[$i]'");
+                            header('location:?url=exititem');
+                        }else {
+
+                        }
+                        
+                    }
+                    
+                } else {
+                    $insert = mysqli_query($conn, "INSERT INTO request_total(id_request, id_gudang, quantity_tambah) VALUES('$idt[$i]','$idg[$k]','$quantitym[$k]')");
+                    if($insert){
+                        $delete = mysqli_query($conn, "DELETE FROM request_total WHERE quantity_tambah=0");
+                        if($delete){
+                            $update = mysqli_query($conn, "UPDATE request_id SET status_req='$stat', picker='$picker' WHERE id_request='$idt[$i]'");
+                            header('location:?url=exititem');
+                        }else {
+
+                        }
+                        
+                    }
+                }
             }
-        } else {
-            $selectgudang = mysqli_query($conn, "SELECT quantity FROM gudang_id WHERE id_gudang='$idg[$i]'");
-            $datagudang = mysqli_fetch_array($selectgudang);
-            $quantitygudang = $datagudang['quantity'];
-            if ($quantityreq > $quantitygudang) {
-                echo '
-                <script>
-                    alert("Qty Melebihi Stok Yang ada req");
-                    window.location.href="?url=exititem";
-                </script>';
-            } else {
-                $update = mysqli_query($conn, "UPDATE request_id SET id_gudang='$idg[$i]', status_req='$stat' WHERE id_request='$idt[$i]'");
-                header('location:?url=exititem');
-            }
+        }{
+
         }
+        
+        
     } {
     }
 }
@@ -200,12 +212,19 @@ if (isset($_POST['preparereq'])) {
                 $data2 = mysqli_fetch_array($select2);
                 $quantityril = $data2['quantity'];
 
-                $kurang = $quantityril - $quantity2[$i];
-                if ($select2) {
-                    $update = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang' WHERE id_gudang='$idk[$i]'");
-                    header('location:?url=exitprepare');
+                $kurang = $quantity2[$i]-$quantityril;
+                $kurang2 = $quantityril-$quantity2[$i];
+                if ($quantityril<$quantity2[$i]) {
+                    $insert = mysqli_query($conn, "INSERT INTO hutang_id(id_komponen_hutang, quantity_hutang) VALUES('$idkomp','$kurang')");
+                    if($insert){
+                        $update = mysqli_query($conn, "UPDATE gudang_id SET quantity='0' WHERE id_gudang='$idk[$i]'");
+                        header('location:?url=exitprepare');
+                    } else {
+                        
+                    }
                 } else {
-                    echo "Lohh";
+                    $update1 = mysqli_query($conn, "UPDATE gudang_id SET quantity='$kurang2' WHERE id_gudang='$idk[$i]'");
+                    header('location:?url=exitprepare');
                 }
             } else {
             }

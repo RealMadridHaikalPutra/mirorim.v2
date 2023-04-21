@@ -43,7 +43,6 @@
                                                 <input type="hidden" value="Approved" name="stat[]">
                                                 <input type="hidden" value="<?=$data['id_toko'];?>" name="idk[]">
                                                 <input type="hidden" value="<?=$data['id_request'];?>" name="idt[]">
-                                                <input type="hidden" value="<?=$data['id_gudang'];?>" name="idg[]">
                                                 <td><input type="number" class="form-control" name="quantityc[]" value="<?=$data['quantity_count'];?>"></td>
                                             </td>
                                             </tr>

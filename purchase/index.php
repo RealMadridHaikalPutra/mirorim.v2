@@ -78,6 +78,7 @@ if ($_SESSION['role'] != 'purchase') {
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="index.php?url=approve">Approval Item</a>
                                     <a class="nav-link" href="index.php?url=approvebox">Approval Box</a>
+                                    <a class="nav-link" href="index.php?url=hutang">Hutang</a>
                                     
                                 </nav>
                             </div>
