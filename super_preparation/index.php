@@ -8,7 +8,7 @@ if (empty($_SESSION['iduser'])) {
     window.location.assign('../login.php');
     </script>";
 }
-if ($_SESSION['role'] != 'preparation') {
+if ($_SESSION['role'] != 'super_preparation') {
     echo "<script>
     alert('Maaf Anda Bukan Sesi Preparation');
     window.location.assign('../login.php');
@@ -58,8 +58,7 @@ if ($_SESSION['role'] != 'preparation') {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <a class="dropdown-item" href="#"><?= $_SESSION['nama_user'];?></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
@@ -72,6 +71,10 @@ if ($_SESSION['role'] != 'preparation') {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                         <div class="sb-sidenav-menu-heading">Preparation</div>
+                        <a class="nav-link" href="index.php?url=task">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
+                                Task Pending
+                            </a>
                             <a class="nav-link" href="index.php?url=komponen">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 List Item & Komponen
@@ -99,7 +102,7 @@ if ($_SESSION['role'] != 'preparation') {
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Super Prepare .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Prepare .</h4> </p>
                     </div>";
                 } else {
                     include $file . '.php';

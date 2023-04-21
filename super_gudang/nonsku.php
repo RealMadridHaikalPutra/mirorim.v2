@@ -61,7 +61,7 @@
                                                             <div class="col-sm-12">
                                                         <label>SKU Gudang</label>
                                                         <div class="form-floating">
-                                                        <input type="text" class="form-control text-uppercase" id="floatingName" name="skug" placeholder="Warehouse" require>
+                                                        <input type="text" class="form-control text-uppercase" id="floatingName" name="skug" placeholder="Warehouse" required>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
@@ -69,14 +69,14 @@
                                                     <div class="col-sm-12">
                                                         <label>Quantity</label>
                                                         <div class="form-floating">
-                                                        <input type="text" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Warehouse" require>
+                                                        <input type="number" class="form-control text-uppercase" id="floatingName" name="quantity"  max="<?=$data['quantity_count'];?>" placeholder="Warehouse" required>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label>Warehouse</label>
                                                         <div class="form-floating">
-                                                        <input type="number" class="form-control text-uppercase" id="floatingName" name="gudang" placeholder="Warehouse" require>
+                                                        <input type="number" class="form-control text-uppercase" id="floatingName" name="gudang" placeholder="Warehouse" required>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>

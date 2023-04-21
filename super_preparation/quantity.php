@@ -6,6 +6,7 @@ $data = mysqli_fetch_array($select);
 
 ?>
 
+
 <div class="row">
     <div class="card">
         <div class="card-body">
@@ -22,7 +23,7 @@ $data = mysqli_fetch_array($select);
                     </div>
                 </div>
                 <hr>
-                <form method="post" action="?url=quantity&idp=<?=$idp;?>">
+                <form method="post" action="?url=quantity">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -30,23 +31,31 @@ $data = mysqli_fetch_array($select);
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>SKU</th>
-                                    <th>Checklist</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $select = mysqli_query($conn, "SELECT * FROM product_id, toko_id WHERE product_id.id_product=toko_id.id_product AND jenis='Mentah'");
-                                $s = 1;
-                                while ($opsi = mysqli_fetch_array($select)) {
+                                    $cek = $_POST['cek'];
+
+                                    $jum = count($cek);
+                                    for($i = 0; $i < $jum; $i++){
+                                        $select = mysqli_query($conn, "SELECT * FROM toko_id, product_id WHERE toko_id.id_product=product_id.id_product AND product_id.id_product='$cek[$i]'");
+                                        $s = 1;
+                                        $opsi = mysqli_fetch_array($select);
+                                
                                 ?>
                                     <tr>
-                                        <th><?= $s++; ?></th>
+                                        <th><?= $s; ?></th>
                                         <td><?= $opsi['nama']; ?></td>
                                         <td><?=$opsi['sku_toko'];?></td>
 
                                         </td>
                                         <td>
-                                            <input type="checkbox" class="form-label" value="<?=$opsi['id_product'];?>" name="cek[]" require="">
+                                            <input type="number" class="form-control" name="quantity[]" require="">
+                                            <input type="hidden" name="jum[]" value="<?= $jum; ?>">
+                                            <input type="hidden" name="nama[]" value="<?= $opsi['nama']; ?>">
+                                            <input type="hidden" name="idp" value="<?=$idp;?>">
                                         </td>
                                     </tr>
                                 <?php
@@ -56,7 +65,7 @@ $data = mysqli_fetch_array($select);
                             </tbody>
                         </table>
                         <div class="text-right m-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" name="komponeninput">Submit</button>
                         </div>
                     </div>
                 </form>

@@ -1,7 +1,7 @@
 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">Check Packing List</h5>
+                        <h5 class="card-title">Add New</h5>
                         <!--Submit-->
                         <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -21,17 +21,32 @@
                                     <button class="btn btn-outline-primary" type="submit" action="" name="qtyvariant">Submit</button>
                                 </div>
                                 </div>
+                                
                             </div>
                             </form>
                             <hr>
-                            <form method="post">
+                            <form id="contact-form" action="" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
+                            <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input class="form-control" name="file" id="image" type="file" required="">
+                            </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama">Name Item</label>
+                                <input class="form-control" name="nama" id="nama" type="text" required="">
+                            </div>
+                            </div>
+                            </div>
                             <div class="table-responsive">
                                     <table class="table table-hover table-bordered" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
-                                                <th>Nama</th>
+                                                <th>Varian</th>
                                                 <th>Jenis</th>
                                             </tr>
                                         </thead>
@@ -45,16 +60,11 @@
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
-                                                <td><input type="file" name="file[]" class="form-control" require=""></td>
-                                                <td><input type="text" class="form-control" name="nama[]" require=""></td>
+                                                <td><input type="text" class="form-control" name="variant[]" require=""></td>
                                                     <input type="hidden" name="jum[]" value="<?=$jum;?>">
+                                                    
                                                 </td>
-                                                <td>
-                                                    <select class="form-control" name="jenis[]">
-                                                        <option value="Mentah" class="form-control">Mentah</option>
-                                                        <option value="Mateng" class="form-control">Mateng</option>
-                                                    </select>
-                                                </td>
+                                                <td><input type="text" class="form-control" name="jenis" value="Mateng" readonly></td>
                                             </tr>
                                             <?php
                                                 }}
@@ -63,7 +73,7 @@
                                             </tbody>
                                     </table>
                                     <div class="text-right">
-                                        <button type="submit" class="btn btn-primary" name="addkomponen">Submit</button>
+                                        <button type="submit" class="btn btn-primary" name="newmultiitem">Submit</button>
                                     </div>
                                 </div>
                             </form>
