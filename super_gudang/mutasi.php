@@ -1,4 +1,4 @@
-    <div class="container-fluid">
+<div class="container-fluid">
                         <h1 class="mt-4">History Mutasi Warehouse</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php?url=gudang">Warehouse</a></li>
@@ -16,62 +16,50 @@
                                                 <th>No</th>
                                                 <th>Image</th>
                                                 <th>Name Item</th>
-                                                <th>SKU Store</th>
                                                 <th>SKU Warehouse</th>
+                                                <th>SKU Warehouse New</th>
                                                 <th>Quantity Out</th>
-                                                <th>Sender</th>
-                                                <th>Recipient</th>
-                                                <th>Status</th>
                                                 <th>Time Out</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                              /*  $ambildatamutasi = mysqli_query($konek, "SELECT * FROM mutasi");
-                                                $k = 1;
-                                                while($data=mysqli_fetch_array($ambildatamutasi)){
-                                                $sku = $data['sku'];
-                                                $nama = $data['nama'];
-                                                $skug = $data['skug'];
-                                                $quantity = $data['quantitymut'];
-                                                $status = $data['status'];
-                                                $time = $data['jamkeluar'];
-                                                $pengirim = $data['sender'];
-                                                $penerima = $data['penerima'];
-
+                                                
+                                                $select = mysqli_query($conn, "SELECT * FROM product_id, gudang_id, mutasi_id WHERE product_id.id_product=gudang_id.id_product AND gudang_id.id_gudang=mutasi_id.id_gudang");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($select)){
+                                                    $status = $data['status_mutasi'];
 
                                                 //cek data gambar ada apa kagak
                                                 $gambar = $data['image'];
                                                 if($gambar==null){
-                                                // jika tidak ada gambar
+                                                 //jika tidak ada gambar
                                                     $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
                                                 } else {
                                                 //jika ada gambar
                                                     $img ='<img src="../images/'.$gambar.'" class="zoomable">';
-                                                 } */
-
+                                                 }
                                             ?>
                                             <tr>
-                                                <th></th>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-uppercase"></td>
-                                                <td class="text-uppercase"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <th><?=$i++;?></th>
+                                                <td>Gambar</td>
+                                                <td><?=$data['nama'];?></td>
+                                                <td class="text-uppercase"><?=$data['skug_lama'];?></td>
+                                                <td class="text-uppercase"><?=$data['skug_baru'];?></td>
+                                                <td><?=$data['quantity_out'];?></td>
+                                                <td><?=$data['datetime'];?></td>
                                                 <?php
-                                                ///if($status=='Done'){
-                                                  //  echo "<td style='color: green;'>$status</td>";
-                                               // } else {
-                                                   // echo "<td style='color: red;'>$status</td>";
-                                               // }
+                                                if($status=='Approved'){
+                                                    echo "<td style='color: green;'>$status</td>";
+                                                } else {
+                                                    echo "<td style='color: red;'>$status</td>";
+                                                }
                                                 ?>
-                                                <td></td>
 
                                             </tr>
                                             <?php
-                                                //}
+                                                }
                                             ?>
                                         </tbody>
                                     </table>

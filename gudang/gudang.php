@@ -4,27 +4,6 @@
                             <li class="breadcrumb-item"><a href="#">Stock</a></li>
                             <li class="breadcrumb-item active">All Stock</li>
                         </ol>
-                        <?php
-                            $ambildatarequest = mysqli_query($conn, "SELECT * FROM request_id, toko_id, product_id WHERE request_id.id_toko=toko_id.id_toko AND toko_id.id_product=product_id.id_product AND status_req='unprocessed' ");
-                            while($ambil = mysqli_fetch_array($ambildatarequest)){
-                            $stats = $ambil['type_req'];
-                            $request = $ambil['requester'];
-                            $sku = $ambil['sku_toko'];
-
-                            if($stats=='refill'){
-                                echo"<div class='alert alert-danger alert-dismissible'>
-                                <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                                <strong>Pemberitahuan SKU $sku Di minta Refill oleh $request </strong>
-                            </div>";
-                            }else{
-                                echo"<div class='alert alert-danger alert-dismissible'>
-                                <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                                <strong>Pemberitahuan SKU $sku Di Request oleh $request </strong>
-                            </div>";
-
-                            }
-                        }
-                        ?>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <a type="button" class="btn btn-outline-primary" href="index.php?url=boxlist">Box List</a>

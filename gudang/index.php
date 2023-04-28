@@ -64,6 +64,10 @@ if ($_SESSION['role'] != 'gudang') {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Warehouse</div>
+                        <a class="nav-link" href="index.php?url=taskpending">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
+                                Task Pending
+                            </a>
                         <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                             All Product

@@ -39,7 +39,7 @@
                                         <td><?= $data['nama']; ?></td>
                                         <td><?= $data['sku_toko']; ?></td>
                                         <td><?= $data['quantity_req']; ?></td>
-                                        <td><?= $_SESSION['nama_user'];?></td>
+                                        <td><input readonly type="text" class ="form-control" value="<?=$_SESSION['nama_user'];?>"></td>
                                         <td><input type="checkbox" value="<?=$data['idpre'];?>" name="cek[]" class="form-input"></td>
                                             <input type="hidden" name="idp[]" value="<?=$data['idp'];?>">
                                             <input type="hidden" name="stat" value="Receive">

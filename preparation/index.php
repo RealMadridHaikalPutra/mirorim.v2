@@ -10,7 +10,7 @@ if (empty($_SESSION['iduser'])) {
 }
 if ($_SESSION['role'] != 'preparation') {
     echo "<script>
-    alert('Maaf Anda Bukan Sesi Toko');
+    alert('Maaf Anda Bukan Sesi Preparation');
     window.location.assign('../login.php');
     </script>";
 }
@@ -71,6 +71,10 @@ if ($_SESSION['role'] != 'preparation') {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                         <div class="sb-sidenav-menu-heading">Preparation</div>
+                        <a class="nav-link" href="index.php?url=task">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
+                                Task Pending
+                            </a>
                             <a class="nav-link" href="index.php?url=komponen">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 List Item & Komponen
@@ -98,7 +102,7 @@ if ($_SESSION['role'] != 'preparation') {
                 if (empty($file)) {
                     echo " <div class='card'>
                     <div class='card-body text-center'>
-                    <p class='card-text'><h4>Selamat Datang di Halaman Super Prepare .</h4> </p>
+                    <p class='card-text'><h4>Selamat Datang di Halaman Prepare .</h4> </p>
                     </div>";
                 } else {
                     include $file . '.php';

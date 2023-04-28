@@ -16,7 +16,7 @@
                                                 <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU</th>
-                                                <th>Quantity Item</th>
+                                                <th>Jenis</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -36,14 +36,15 @@
                                                 $img ='<img src="../assets/img/'.$gambar.'" class="zoomable">';
                                             }   
                                         ?>
-                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal">
+                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idp;?>">
                                                 <th><?=$i++;?></th>
                                                 <td><?=$img;?></td>
                                                 <td><?=$data['nama'];?></td>
                                                 <td><?=$data['sku_toko'];?></td>
+                                                <td><?=$data['jenis'];?></td>
                                             </tr>
                                         
-                                            <div class="modal fade" id="largeModal" tabindex="-1">
+                                            <div class="modal fade" id="largeModal<?=$idp;?>" tabindex="-1">
                                             <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -55,18 +56,11 @@
                                             <form method="post" class="row g-3" enctype="multipart/form-data">   
                                             <div class="modal-body">
                                                     <br>
-                                                    <input type="hidden" value="<?=$data['id_product'];?>" name="idp">
+                                                    <input type="hidden" value="<?=$idp;?>" name="idp">
                                                     <div class="col-sm-12">
                                                         <label>SKU Gudang</label>
                                                         <div class="form-floating">
                                                         <input type="ntext" class="form-control text-uppercase" id="floatingName" name="skug" placeholder="Warehouse" require>
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <label>Quantity</label>
-                                                        <div class="form-floating">
-                                                        <input type="ntext" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Warehouse" require>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
@@ -79,7 +73,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="text-center">
-                                                        <button type="submit" name="editnonsku" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="editprepare" class="btn btn-primary">Submit</button>
                                                     </div> 
                                             </div>
                                             </form>

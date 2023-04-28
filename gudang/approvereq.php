@@ -56,7 +56,7 @@
                                                 <input type="hidden" value="<?=$quantity[$i];?>" name="quantity[]">
                                                 <input type="hidden" value="Unprocess" name="stat">
                                                 <input type="hidden" value="<?=$requester;?>" name="requester">
-                                                <input type="hidden" value="<?=$typereq[$i];?>" name="typereq">
+                                                <input type="hidden" value="<?=$typereq[$i];?>" name="typereq[]">
                                                 </select></th>
                                                     <?php
                                                         $select = mysqli_query($conn, "SELECT * FROM product_id, list_komponen, toko_id WHERE product_id.id_product=list_komponen.id_komponen AND toko_id.id_product=product_id.id_product AND id_product_finish='$idp'");

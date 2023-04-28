@@ -64,6 +64,10 @@ if ($_SESSION['role'] != 'toko') {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Toko</div>
+                        <a class="nav-link" href="index.php?url=task">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
+                                Task Pending
+                            </a>
                         <a class="nav-link" href="index.php?url=product">
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Product
