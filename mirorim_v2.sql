@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2023 at 07:32 PM
+-- Generation Time: Apr 28, 2023 at 12:57 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -115,7 +115,8 @@ CREATE TABLE `hutang_id` (
 
 INSERT INTO `hutang_id` (`id_hutang`, `id_komponen_hutang`, `quantity_hutang`, `status_hutang`, `date_hutang`) VALUES
 (3, 1, 0, 'Lunas', '2023-04-21 16:33:39'),
-(4, 1, 0, 'Lunas', '2023-04-21 16:33:39');
+(4, 1, 0, 'Lunas', '2023-04-21 16:33:39'),
+(5, 1, 80, 'Belum', '2023-04-28 10:48:50');
 
 -- --------------------------------------------------------
 
@@ -293,7 +294,8 @@ CREATE TABLE `request_prepare` (
 
 INSERT INTO `request_prepare` (`id_prepare`, `id_product_finish`, `quantity_req`, `quantity_matang`, `quantity_reject`, `type_req`, `status_prepare`, `receiver`, `worker`, `requester`, `date_receiver`, `date_start`, `date_finish`, `gudang_in`, `gudang_out`) VALUES
 (54, 15, 10, 8, 2, 'P', 'Diterima', 'pre', 'pre', 'Dimas', '2023-04-21 18:38:00', '2023-04-21 18:38:05', '2023-04-21 18:38:23', '34', '34'),
-(58, 15, 5, 3, 2, 'P', 'Diterima', 'pre', 'pre', 'Dimas', '2023-04-21 18:38:00', '2023-04-21 18:38:08', '2023-04-21 18:38:23', '34', '34');
+(58, 15, 5, 3, 2, 'P', 'Diterima', 'pre', 'pre', 'Dimas', '2023-04-21 18:38:00', '2023-04-21 18:38:08', '2023-04-21 18:38:23', '34', '34'),
+(60, 15, 2, 0, 0, 'P', 'Unprocess', '', '', 'Dimas', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '34');
 
 -- --------------------------------------------------------
 
@@ -489,7 +491,7 @@ ALTER TABLE `gudang_id`
 -- AUTO_INCREMENT for table `hutang_id`
 --
 ALTER TABLE `hutang_id`
-  MODIFY `id_hutang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_hutang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item_id`
@@ -531,7 +533,7 @@ ALTER TABLE `request_id`
 -- AUTO_INCREMENT for table `request_prepare`
 --
 ALTER TABLE `request_prepare`
-  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_prepare` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `request_total`
